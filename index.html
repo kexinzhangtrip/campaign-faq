@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" data-lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campaign 2.0 Platform — 运营知识库</title>
+<title>Campaign 2.0 Platform — 运营知识库 / Operations Knowledge Base</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; background: #f0f2f5; color: #333; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif; background: #f0f2f5; color: #333; }
 
-/* ===== Unified Header ===== */
-.site-header { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 28px 40px 0; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+/* ===== Language toggle ===== */
+.lang-switch { position: absolute; top: 22px; right: 40px; display: flex; gap: 4px; background: rgba(255,255,255,.15); padding: 3px; border-radius: 8px; backdrop-filter: blur(4px); }
+.lang-switch button { padding: 5px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,.85); transition: all .2s; }
+.lang-switch button:hover { background: rgba(255,255,255,.15); color: white; }
+.lang-switch button.active { background: white; color: #1e3a8a; }
+[data-lang="zh"] .en { display: none !important; }
+[data-lang="en"] .zh { display: none !important; }
+
+/* ===== Header ===== */
+.site-header { position: relative; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 28px 40px 0; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
 .site-header h1 { font-size: 22px; font-weight: 700; }
 .site-header > p { margin-top: 6px; opacity: .85; font-size: 14px; }
 .site-header .meta { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
@@ -32,88 +40,63 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .faq-toolbar input { width: 100%; max-width: 600px; padding: 10px 16px 10px 40px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 14px; outline: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 12px center; transition: border-color .2s; }
 .faq-toolbar input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.1); }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif; background: #f0f2f5; color: #333; }
+.container { display: flex; max-width: 1400px; margin: 0 auto; padding: 24px 40px; gap: 24px; }
 
-  /* Layout */
-  .container { display: flex; max-width: 1400px; margin: 0 auto; padding: 24px 40px; gap: 24px; }
+.sidebar { width: 240px; flex-shrink: 0; }
+.sidebar-sticky { position: sticky; top: 80px; }
+.sidebar h3 { font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; padding-left: 8px; }
+.sidebar a { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 6px; color: #4b5563; text-decoration: none; font-size: 13px; margin-bottom: 2px; transition: all 0.15s; }
+.sidebar a:hover { background: #eff6ff; color: #1d4ed8; }
+.sidebar a.active { background: #eff6ff; color: #1d4ed8; font-weight: 600; }
+.sidebar a .count { margin-left: auto; background: #e5e7eb; color: #6b7280; border-radius: 10px; padding: 1px 7px; font-size: 11px; }
+.sidebar a.active .count { background: #bfdbfe; color: #1d4ed8; }
 
-  /* Sidebar */
-  .sidebar { width: 220px; flex-shrink: 0; }
-  .sidebar-sticky { position: sticky; top: 80px; }
-  .sidebar h3 { font-size: 12px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; padding-left: 8px; }
-  .sidebar a { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 6px; color: #4b5563; text-decoration: none; font-size: 13px; margin-bottom: 2px; transition: all 0.15s; }
-  .sidebar a:hover { background: #eff6ff; color: #1d4ed8; }
-  .sidebar a.active { background: #eff6ff; color: #1d4ed8; font-weight: 600; }
-  .sidebar a .count { margin-left: auto; background: #e5e7eb; color: #6b7280; border-radius: 10px; padding: 1px 7px; font-size: 11px; }
-  .sidebar a.active .count { background: #bfdbfe; color: #1d4ed8; }
+.main { flex: 1; min-width: 0; }
 
-  /* Main */
-  .main { flex: 1; min-width: 0; }
+.category { margin-bottom: 32px; }
+.category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; }
+.category-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.category-header h2 { font-size: 18px; font-weight: 700; color: #111827; }
+.category-header .badge { background: #f3f4f6; color: #6b7280; border-radius: 12px; padding: 2px 10px; font-size: 12px; }
 
-  /* Category section */
-  .category { margin-bottom: 32px; }
-  .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; }
-  .category-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .category-header h2 { font-size: 18px; font-weight: 700; color: #111827; }
-  .category-header .badge { background: #f3f4f6; color: #6b7280; border-radius: 12px; padding: 2px 10px; font-size: 12px; }
+.faq-item { background: white; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border: 1px solid #f3f4f6; overflow: hidden; transition: box-shadow 0.15s; }
+.faq-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.faq-q { padding: 16px 20px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; user-select: none; }
+.faq-q:hover { background: #fafafa; }
+.q-icon { width: 22px; height: 22px; background: #dbeafe; color: #1d4ed8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.faq-q .question-text { flex: 1; font-size: 14px; font-weight: 600; color: #1f2937; line-height: 1.5; }
+.faq-q .arrow { color: #9ca3af; font-size: 12px; margin-top: 3px; transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+.faq-item.open .faq-q { background: #f8faff; border-bottom: 1px solid #e5e7eb; }
+.faq-a { display: none; padding: 16px 20px 16px 54px; background: #fefefe; font-size: 14px; line-height: 1.7; color: #374151; }
+.faq-item.open .faq-a { display: block; }
 
-  /* FAQ Item */
-  .faq-item { background: white; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border: 1px solid #f3f4f6; overflow: hidden; transition: box-shadow 0.15s; }
-  .faq-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-  .faq-q { padding: 16px 20px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; user-select: none; }
-  .faq-q:hover { background: #fafafa; }
-  .q-icon { width: 22px; height: 22px; background: #dbeafe; color: #1d4ed8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-  .faq-q .question-text { flex: 1; font-size: 14px; font-weight: 600; color: #1f2937; line-height: 1.5; }
-  .faq-q .arrow { color: #9ca3af; font-size: 12px; margin-top: 3px; transition: transform 0.2s; flex-shrink: 0; }
-  .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
-  .faq-item.open .faq-q { background: #f8faff; border-bottom: 1px solid #e5e7eb; }
-  .faq-a { display: none; padding: 16px 20px 16px 54px; background: #fefefe; font-size: 14px; line-height: 1.7; color: #374151; }
-  .faq-item.open .faq-a { display: block; }
+.faq-a .answer-label { display: inline-block; background: #dcfce7; color: #15803d; border-radius: 4px; padding: 1px 8px; font-size: 11px; font-weight: 600; margin-bottom: 8px; }
+.faq-a ul, .faq-a ol { padding-left: 18px; margin: 8px 0; }
+.faq-a ul li, .faq-a ol li { margin-bottom: 4px; }
+.faq-a .code { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 4px; padding: 2px 6px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: #e11d48; }
+.faq-a .tip { background: #fffbeb; border-left: 3px solid #f59e0b; padding: 8px 12px; border-radius: 0 4px 4px 0; margin-top: 8px; font-size: 13px; color: #78350f; }
+.faq-a .note { background: #f0f9ff; border-left: 3px solid #0ea5e9; padding: 8px 12px; border-radius: 0 4px 4px 0; margin-top: 8px; font-size: 13px; color: #0c4a6e; }
 
-  /* Answer formatting */
-  .faq-a .answer-label { display: inline-block; background: #dcfce7; color: #15803d; border-radius: 4px; padding: 1px 8px; font-size: 11px; font-weight: 600; margin-bottom: 8px; }
-  .faq-a ul { padding-left: 18px; margin: 8px 0; }
-  .faq-a ul li { margin-bottom: 4px; }
-  .faq-a .code { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 4px; padding: 2px 6px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: #e11d48; }
-  .faq-a .tip { background: #fffbeb; border-left: 3px solid #f59e0b; padding: 8px 12px; border-radius: 0 4px 4px 0; margin-top: 8px; font-size: 13px; color: #78350f; }
-  .faq-a .note { background: #f0f9ff; border-left: 3px solid #0ea5e9; padding: 8px 12px; border-radius: 0 4px 4px 0; margin-top: 8px; font-size: 13px; color: #0c4a6e; }
+.tag { display: inline-block; border-radius: 4px; padding: 1px 7px; font-size: 11px; margin-right: 4px; margin-top: 6px; }
+.tag-permission { background: #fef3c7; color: #92400e; }
+.tag-bug { background: #fee2e2; color: #991b1b; }
+.tag-howto { background: #e0f2fe; color: #075985; }
+.tag-config { background: #f3e8ff; color: #6b21a8; }
 
-  /* Tags */
-  .tag { display: inline-block; border-radius: 4px; padding: 1px 7px; font-size: 11px; margin-right: 4px; margin-top: 6px; }
-  .tag-permission { background: #fef3c7; color: #92400e; }
-  .tag-bug { background: #fee2e2; color: #991b1b; }
-  .tag-howto { background: #e0f2fe; color: #075985; }
-  .tag-config { background: #f3e8ff; color: #6b21a8; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card { background: white; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border: 1px solid #f3f4f6; }
+.stat-card .num { font-size: 28px; font-weight: 800; color: #1d4ed8; }
+.stat-card .label { font-size: 12px; color: #6b7280; margin-top: 2px; }
 
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
-  .stat-card { background: white; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border: 1px solid #f3f4f6; }
-  .stat-card .num { font-size: 28px; font-weight: 800; color: #1d4ed8; }
-  .stat-card .label { font-size: 12px; color: #6b7280; margin-top: 2px; }
+.no-results { text-align: center; padding: 60px 20px; color: #9ca3af; display: none; }
+.no-results .icon { font-size: 48px; margin-bottom: 12px; }
 
-  /* No results */
-  .no-results { text-align: center; padding: 60px 20px; color: #9ca3af; display: none; }
-  .no-results .icon { font-size: 48px; margin-bottom: 12px; }
+mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; }
 
-  /* Highlight */
-  mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; }
-
-  /* Responsive */
-  @media (max-width: 900px) {
-    .container { flex-direction: column; padding: 16px 20px; }
-    .sidebar { width: 100%; }
-    .sidebar-sticky { position: static; display: flex; flex-wrap: wrap; gap: 6px; }
-    .sidebar h3 { display: none; }
-    .sidebar a { padding: 6px 12px; border: 1px solid #e5e7eb; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .header { padding: 24px 20px; }
-    .search-bar { padding: 14px 20px; }
-  }
-
-
-/* ===== Records Tab ===== */
+/* ===== Records ===== */
 .rec-sticky { position: sticky; top: 0; z-index: 100; background: white; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.rec-banner { background: #fef3c7; color: #78350f; padding: 8px 40px; font-size: 12.5px; border-bottom: 1px solid #fde68a; }
 .rec-toolbar { display: flex; align-items: center; gap: 10px; padding: 12px 40px; border-bottom: 1px solid #f3f4f6; flex-wrap: wrap; }
 .rec-toolbar input { flex: 1; min-width: 240px; max-width: 480px; padding: 9px 16px 9px 38px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 14px; outline: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 12px center; }
 .rec-toolbar input:focus { border-color: #3b82f6; }
@@ -121,7 +104,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .rec-btn:hover { background: #f9fafb; }
 .rec-count { font-size: 13px; color: #6b7280; margin-left: auto; white-space: nowrap; }
 
-/* Type filter bar */
 .type-bar { display: flex; gap: 6px; padding: 8px 40px 10px; overflow-x: auto; scrollbar-width: none; }
 .type-bar::-webkit-scrollbar { display: none; }
 .fb { padding: 5px 12px; border-radius: 16px; font-size: 12px; cursor: pointer; border: 1px solid #e5e7eb; background: white; color: #4b5563; white-space: nowrap; transition: all .15s; }
@@ -129,15 +111,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .fb.fa { background: #1d4ed8; color: white; border-color: #1d4ed8; }
 
 .rec-wrap { max-width: 960px; margin: 0 auto; padding: 20px 40px; }
-
-/* Record card */
 .rc { background: white; border-radius: 12px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.07); border: 1px solid #f3f4f6; overflow: hidden; transition: box-shadow .15s; }
 .rc:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
 .rc-header { display: flex; align-items: center; gap: 8px; padding: 6px 12px 0; }
 .ri { display: inline-block; padding: 3px 9px; background: #f3f4f6; color: #9ca3af; font-size: 11px; font-weight: 600; border-radius: 4px; }
 .ttype { font-size: 11px; font-weight: 600; border-radius: 12px; padding: 2px 10px; }
 
-/* Chat bubbles */
 .msg { display: flex; gap: 10px; padding: 12px 16px 10px; }
 .msg.reply { background: #f9fafb; border-top: 1px solid #f3f4f6; }
 .av { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; flex-shrink: 0; }
@@ -154,7 +133,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .bc .fwd { background: #f8faff; border-left: 3px solid #93c5fd; padding: 8px 12px; border-radius: 0 6px 6px 0; margin: 4px 0; font-size: 13px; }
 .bc .img-miss { background: #f3f4f6; color: #9ca3af; font-size: 11px; padding: 2px 6px; border-radius: 3px; }
 
-/* Thread */
 .tt { display: flex; align-items: center; gap: 8px; padding: 9px 16px; cursor: pointer; font-size: 13px; color: #6b7280; background: #fafafa; border-top: 1px dashed #e5e7eb; user-select: none; flex-wrap: wrap; }
 .tt:hover { background: #f3f4f6; color: #374151; }
 .ta { margin-left: auto; font-size: 10px; transition: transform .2s; }
@@ -162,18 +140,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .rplr { background: #ede9fe; color: #6d28d9; border-radius: 4px; padding: 1px 7px; font-size: 11px; }
 .tr { border-top: 1px solid #e5e7eb; }
 
-/* Lightbox */
 .lb { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
 .lb.on { display: flex; }
 .lb img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 40px rgba(0,0,0,.6); }
 
-mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; }
 .hidden { display: none !important; }
 
+@media (max-width: 900px) {
+  .container { flex-direction: column; padding: 16px 20px; }
+  .sidebar { width: 100%; }
+  .sidebar-sticky { position: static; display: flex; flex-wrap: wrap; gap: 6px; }
+  .sidebar h3 { display: none; }
+  .sidebar a { padding: 6px 12px; border: 1px solid #e5e7eb; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 700px) {
-  .site-header,.tab-nav,.faq-toolbar,.rec-toolbar,.type-bar,.rec-wrap { padding-left: 16px; padding-right: 16px; }
+  .site-header,.tab-nav,.faq-toolbar,.rec-toolbar,.type-bar,.rec-wrap,.rec-banner { padding-left: 16px; padding-right: 16px; }
   .container { padding-left: 16px; padding-right: 16px; }
   .tab-btn { padding: 8px 14px; font-size: 13px; }
+  .lang-switch { right: 16px; top: 16px; }
 }
 </style>
 </head>
@@ -181,1198 +166,1488 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
 
 <!-- ===== Header ===== -->
 <div class="site-header">
-  <h1>🛠️ Campaign 2.0 Platform — 运营知识库</h1>
-  <p>基于 Campaign 2.0 Platform Communication Group 真实问答沉淀 &nbsp;·&nbsp; 2026.04.07 – 2026.05.19（v2 更新：新增近30天 Foxpage 问答 15 条）</p>
+  <div class="lang-switch">
+    <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <h1>
+    <span class="zh">🛠️ Campaign 2.0 Platform — 运营知识库</span>
+    <span class="en">🛠️ Campaign 2.0 Platform — Operations Knowledge Base</span>
+  </h1>
+  <p>
+    <span class="zh">基于 Campaign 2.0 Platform Communication Group 真实问答沉淀 &nbsp;·&nbsp; 2026.04.07 – 2026.05.19(v2 更新:新增近30天 Foxpage 问答 15 条)</span>
+    <span class="en">Distilled from real Q&amp;A in the Campaign 2.0 Platform Communication Group &nbsp;·&nbsp; 2026.04.07 – 2026.05.19 (v2 update: +15 Foxpage Q&amp;A from the past 30 days)</span>
+  </p>
   <div class="meta">
-    <span>📬 78 条原始问题</span>
-    <span>❓ 51 个归纳问题</span>
-    <span>🆕 +15（近30天）</span>
-    <span>💬 68 个完整对话</span>
-    <span>🖼️ 222 张截图</span>
-    <span>👥 34 位用户解析</span>
+    <span><span class="zh">📬 78 条原始问题</span><span class="en">📬 78 raw questions</span></span>
+    <span><span class="zh">❓ 51 个归纳问题</span><span class="en">❓ 51 distilled questions</span></span>
+    <span><span class="zh">🆕 +15(近30天)</span><span class="en">🆕 +15 (last 30 days)</span></span>
+    <span><span class="zh">💬 68 个完整对话</span><span class="en">💬 68 full conversations</span></span>
+    <span><span class="zh">🖼️ 222 张截图</span><span class="en">🖼️ 222 screenshots</span></span>
+    <span><span class="zh">👥 34 位用户解析</span><span class="en">👥 34 users analyzed</span></span>
   </div>
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('faq',this)">📚 FAQ 知识库 <span class="tc">51 问</span></button>
-    <button class="tab-btn" onclick="switchTab('rec',this)">💬 原始沟通记录 <span class="tc">78 条</span></button>
+    <button class="tab-btn active" onclick="switchTab('faq',this)">
+      <span class="zh">📚 FAQ 知识库</span><span class="en">📚 FAQ Knowledge Base</span>
+      <span class="tc"><span class="zh">51 问</span><span class="en">51 Qs</span></span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('rec',this)">
+      <span class="zh">💬 原始沟通记录</span><span class="en">💬 Raw Conversation Log</span>
+      <span class="tc"><span class="zh">78 条</span><span class="en">78 msgs</span></span>
+    </button>
   </div>
 </div>
 
 <!-- ===== FAQ Tab ===== -->
 <div class="tab-panel active" id="tab-faq">
   <div class="faq-toolbar">
-    <input type="text" id="faqSearch" placeholder="搜索问题关键词，如「权限」「QA」「售罄」「招商」..." oninput="doFaqSearch(this.value)" />
+    <input type="text" id="faqSearch" oninput="doFaqSearch(this.value)"
+      data-ph-zh="搜索问题关键词，如「权限」「QA」「售罄」「招商」..."
+      data-ph-en="Search keywords, e.g. permission, QA, sold-out, sourcing..." />
   </div>
   <div class="container">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="sidebar-sticky">
-      <h3>问题分类</h3>
-      <a href="#all" onclick="filterCat('all')" class="active" id="cat-all">
-        📋 全部 <span class="count">51</span>
-      </a>
-      <a href="#permission" onclick="filterCat('permission')" id="cat-permission">
-        🔐 权限问题 <span class="count">7</span>
-      </a>
-      <a href="#sourcing" onclick="filterCat('sourcing')" id="cat-sourcing">
-        📦 招商 & 货单 <span class="count">6</span>
-      </a>
-      <a href="#selection" onclick="filterCat('selection')" id="cat-selection">
-        🗂️ Selection Pool <span class="count">7</span>
-      </a>
-      <a href="#flashsale" onclick="filterCat('flashsale')" id="cat-flashsale">
-        ⚡ Flash Sale / 秒杀 <span class="count">6</span>
-      </a>
-      <a href="#qa" onclick="filterCat('qa')" id="cat-qa">
-        ✅ QA 审核 <span class="count">4</span>
-      </a>
-      <a href="#display" onclick="filterCat('display')" id="cat-display">
-        🖥️ 页面展示 <span class="count">4</span>
-      </a>
-      <a href="#mechanism" onclick="filterCat('mechanism')" id="cat-mechanism">
-        ⚙️ Mechanism & MKT <span class="count">4</span>
-      </a>
-      <a href="#system" onclick="filterCat('system')" id="cat-system">
-        🔧 系统 & 配置 <span class="count">4</span>
-      </a>
-      <a href="#foxpage" onclick="filterCat('foxpage')" id="cat-foxpage">
-        📄 Foxpage（近30天） <span class="count">15</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Main -->
-  <div class="main">
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat-card">
-        <div class="num">51</div>
-        <div class="label">归纳问题总数</div>
-      </div>
-      <div class="stat-card">
-        <div class="num">15</div>
-        <div class="label">近30天群聊新增</div>
-      </div>
-      <div class="stat-card">
-        <div class="num">13</div>
-        <div class="label">涉及报错代码</div>
-      </div>
-      <div class="stat-card">
-        <div class="num">9</div>
-        <div class="label">问题分类</div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-sticky">
+        <h3><span class="zh">问题分类</span><span class="en">Categories</span></h3>
+        <a href="#all" onclick="filterCat('all')" class="active" id="cat-all">
+          📋 <span class="zh">全部</span><span class="en">All</span> <span class="count">51</span>
+        </a>
+        <a href="#permission" onclick="filterCat('permission')" id="cat-permission">
+          🔐 <span class="zh">权限问题</span><span class="en">Permissions</span> <span class="count">7</span>
+        </a>
+        <a href="#sourcing" onclick="filterCat('sourcing')" id="cat-sourcing">
+          📦 <span class="zh">招商 &amp; 货单</span><span class="en">Sourcing &amp; Inventory</span> <span class="count">6</span>
+        </a>
+        <a href="#selection" onclick="filterCat('selection')" id="cat-selection">
+          🗂️ <span class="zh">Selection Pool</span><span class="en">Selection Pool</span> <span class="count">7</span>
+        </a>
+        <a href="#flashsale" onclick="filterCat('flashsale')" id="cat-flashsale">
+          ⚡ <span class="zh">Flash Sale / 秒杀</span><span class="en">Flash Sale</span> <span class="count">6</span>
+        </a>
+        <a href="#qa" onclick="filterCat('qa')" id="cat-qa">
+          ✅ <span class="zh">QA 审核</span><span class="en">QA Review</span> <span class="count">4</span>
+        </a>
+        <a href="#display" onclick="filterCat('display')" id="cat-display">
+          🖥️ <span class="zh">页面展示</span><span class="en">Page Display</span> <span class="count">4</span>
+        </a>
+        <a href="#mechanism" onclick="filterCat('mechanism')" id="cat-mechanism">
+          ⚙️ <span class="zh">Mechanism &amp; MKT</span><span class="en">Mechanism &amp; MKT</span> <span class="count">4</span>
+        </a>
+        <a href="#system" onclick="filterCat('system')" id="cat-system">
+          🔧 <span class="zh">系统 &amp; 配置</span><span class="en">System &amp; Config</span> <span class="count">4</span>
+        </a>
+        <a href="#foxpage" onclick="filterCat('foxpage')" id="cat-foxpage">
+          📄 <span class="zh">Foxpage(近30天)</span><span class="en">Foxpage (last 30d)</span> <span class="count">15</span>
+        </a>
       </div>
     </div>
 
-    <div id="no-results" class="no-results">
-      <div class="icon">🔍</div>
-      <p>未找到匹配的问题，请尝试其他关键词</p>
-    </div>
-
-    <!-- 1. 权限问题 -->
-    <div class="category" data-cat="permission" id="permission">
-      <div class="category-header">
-        <div class="category-icon" style="background:#fef3c7;">🔐</div>
-        <h2>权限问题</h2>
-        <span class="badge">7 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="permission">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">报错 "No permission for the theme of this campaign"，无法访问 Campaign，怎么解决？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>这是最常见的权限报错，原因是你没有该 campaign 所属 <strong>Theme</strong> 的访问权限。</p>
-          <ul>
-            <li>在报错信息中找到 Theme 名称（如 <span class="code">DE_Double_day_local_mega</span>）</li>
-            <li>联系 <strong>@Tian Bu (卜天)</strong> 申请对应 Theme 权限</li>
-            <li>提供你的 EID、需要的 Theme 名称及访问的 Campaign URL</li>
-          </ul>
-          <div class="tip">💡 如果已有 theme 权限还是打不开，确认申请的 theme 和 campaign 所属 theme 完全一致（注意大小写）。</div>
-          <div><span class="tag tag-permission">权限</span><span class="tag tag-bug">报错 17128</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="permission">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">如何申请编辑某个 Campaign 的权限（如修改 Campaign 信息）？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>报错信息中会包含 <span class="code">you don't have the THEME permission: &lt;主题名&gt;, please contact admin(&lt;管理员名&gt;) to apply</span></p>
-          <ul>
-            <li>直接联系报错中提示的管理员（如 <strong>TIAN BU / 卜天</strong>）申请权限</li>
-            <li>在群内 @ 管理员，说明你的 EID、Team 和需要访问的 Campaign URL</li>
-          </ul>
-          <div><span class="tag tag-permission">权限</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="permission">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">我是 "campaign participant" 角色，但无法在 2.0 新建 Single Campaign，需要额外申请什么权限？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p><strong>campaign participant</strong> 角色只有参与权限，新建 Campaign 需要更高权限。</p>
-          <ul>
-            <li>联系 <strong>@Tian Bu (卜天)</strong> 申请对应 Theme 的 <strong>操作权限</strong>（而不仅仅是参与权限）</li>
-            <li>说明你要创建 Campaign 的 Theme 和用途</li>
-          </ul>
-          <div><span class="tag tag-permission">权限</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="permission">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">TNT Sourcing 规则提交后，审批人需要更新，如何修改系统中的审批人？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>审批人信息无法在 Campaign 2.0 前台直接修改，需要联系平台管理员处理。</p>
-          <ul>
-            <li>在群内说明需要更改审批人的 <strong>Sourcing 规则链接</strong> 和 <strong>新审批人的 EID</strong></li>
-            <li>联系 <strong>@Tian Bu (卜天)</strong> 或 <strong>@Wenlu Gan (甘雯露)</strong> 在后台修改</li>
-          </ul>
-          <div class="note">📌 同样适用于 TripPal 审批流程中更换审批人（通过 Workspace 操作）。</div>
-          <div><span class="tag tag-permission">权限</span><span class="tag tag-config">审批流</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="permission">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">已有 theme 权限，为什么还是报错 "No permission for the theme of this campaign"？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 常见原因</span>
-          <ul>
-            <li>你申请的 theme 名称与该 campaign 实际所属 theme 不一致</li>
-            <li>该 campaign 属于一个你未申请权限的子 theme</li>
-            <li>权限刚刚被批准，需要等待系统同步（通常几分钟内生效）</li>
-          </ul>
-          <p style="margin-top:8px">如仍无法解决，截图报错信息后 @ <strong>@Tian Bu (卜天)</strong> 协助排查。</p>
-          <div><span class="tag tag-permission">权限</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="permission">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">HQ 在 Collection 里建 Pool 时，Theme 下只有各市场的选项，没有 HQ 专属 Theme，该选哪个？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>HQ 目前没有独立 Theme，在 Collection 里建 Pool 时需选择对应的市场 Theme，或联系 <strong>@Tian Bu (卜天)</strong> 确认正确的操作方式。</p>
-          <div><span class="tag tag-permission">权限</span><span class="tag tag-howto">操作指引</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="permission">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">如何在 TripPal 审批流程中添加新的审批人？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 操作步骤</span>
-          <ol style="padding-left:18px; margin-top:8px;">
-            <li style="margin-bottom:6px">打开 TripPal <strong>Workspace</strong>，找到对应的审批入口</li>
-            <li style="margin-bottom:6px">切换到"审批人管理"标签页</li>
-            <li style="margin-bottom:6px">点击"添加审批人"，输入新审批人 EID 后保存</li>
-          </ol>
-          <div><span class="tag tag-howto">操作指引</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. 招商 & 货单 -->
-    <div class="category" data-cat="sourcing" id="sourcing">
-      <div class="category-header">
-        <div class="category-icon" style="background:#ecfdf5;">📦</div>
-        <h2>招商 & 货单上传</h2>
-        <span class="badge">6 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="sourcing">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">ANT 上传货单报错 "Wishlist ExpectedHookDeal is invalid: 50% OFF or BOGO"，如何解决？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>该错误（SERVICE CODE: 17128, INTERFACE: upsertTntSourcingRule）说明 ANT 货单中存在不合规的 Wishlist 折扣类型。</p>
-          <ul>
-            <li>检查上传的 ANT sourcing 文件，找到 <span class="code">ExpectedHookDeal</span> 列</li>
-            <li>确认该字段的值格式是否符合系统支持的类型（不能直接填写 "50% OFF" 或 "BOGO" 文字）</li>
-            <li>将文件修正后重新上传，或联系 <strong>@Wenlu Gan (甘雯露)</strong> 协助确认正确格式</li>
-          </ul>
-          <div><span class="tag tag-bug">报错 17128</span><span class="tag tag-howto">ANT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="sourcing">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Regional 在 HQ KO 前提前发起招商，设置了错误的 Booking Period，被拒绝后系统依然限制 Booking Period 无法更改，如何处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 紧急处理</span>
-          <p>这是系统 Bug：即使 Regional 招商规则已被拒绝，系统仍会用其 Booking Period 限制后续操作。</p>
-          <ul>
-            <li>立即联系 <strong>@Wenlu Gan (甘雯露)</strong> 并抄送研发</li>
-            <li>提供影响的 Campaign 链接和需要修改的正确 Booking Period 时间</li>
-            <li>需要研发从系统后台手动修改 Booking Period</li>
-          </ul>
-          <div class="tip">💡 预防措施：Global 发起招商前，提前与各 Regional 确认好 KO 时间，避免 Regional 提前操作。</div>
-          <div><span class="tag tag-bug">系统Bug</span><span class="tag tag-permission">招商</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="sourcing">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">POI ID 报错 "POI ID or Resource ID is error. There is no data from ANT"，如何处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>该报错（INTERFACE: upsertTntSelectPool）说明该 POI ID 在 ANT 系统中不存在或未同步。</p>
-          <ul>
-            <li>确认该 POI ID 在 ANT/EBK 系统中是否存在且已上线</li>
-            <li>如果 POI 刚提交，等待 ANT 系统同步（可能需要数小时）</li>
-            <li>联系 <strong>@Wenlu Gan (甘雯露)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong> 确认数据状态</li>
-          </ul>
-          <div><span class="tag tag-bug">报错 17128</span><span class="tag tag-howto">ANT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="sourcing">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">ANT 产品提交审核后，状态长时间停留在"待审核"，如何处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>产品（如景点）提交后在 EBK/POI sourcing 中未反映，可能是同步延迟或审核队列积压。</p>
-          <ul>
-            <li>在 EBK 系统检查产品状态</li>
-            <li>若超过24小时仍未处理，联系 <strong>@Wenlu Gan (甘雯露)</strong> 并提供产品 ID 和名称</li>
-          </ul>
-          <div><span class="tag tag-howto">ANT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="sourcing">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">ZOO 系统无法设置当天的招商时间，最早只能选到次日 00:00，如何绕过这个限制？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 系统限制</span>
-          <p>ZOO 系统存在设计限制，当日时间无法在前台选择。</p>
-          <ul>
-            <li>需要联系 <strong>@Tian Bu (卜天)</strong> 在后台手动添加当天时间</li>
-            <li>联系时提供活动链接和需要设置的具体时间范围</li>
-          </ul>
-          <div class="note">📌 例如需设置"当下至某日 22:59:59"，前台无法操作，只能后台处理。</div>
-          <div><span class="tag tag-bug">系统限制</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="sourcing">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Collection 中子主题（sub-theme）建错了，Sourcing 已经配好，还能修改子主题吗？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 注意</span>
-          <p>Sourcing 配置完成后，子主题是否可以修改取决于当前 Campaign 状态：</p>
-          <ul>
-            <li>如果 Campaign 尚未上线，联系 <strong>@Tian Bu (卜天)</strong> 确认是否可在后台修改</li>
-            <li>如果 Campaign 已上线，修改子主题风险较大，需谨慎评估影响</li>
-          </ul>
-          <div><span class="tag tag-howto">配置</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Selection Pool -->
-    <div class="category" data-cat="selection" id="selection">
-      <div class="category-header">
-        <div class="category-icon" style="background:#ede9fe;">🗂️</div>
-        <h2>Selection Pool 配置</h2>
-        <span class="badge">7 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="selection">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">建 Selection Pool 报错 "theme not found"（upsertHotelSelectionSchema），如何处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>这说明你的账号没有该 Collection/Campaign 所属 Theme 的权限，或 Theme 配置异常。</p>
-          <ul>
-            <li>联系 <strong>@Tian Bu (卜天)</strong>，提供 EID、Campaign URL 和 Team</li>
-            <li>请求对应 Theme 权限</li>
-          </ul>
-          <div><span class="tag tag-bug">报错 17128</span><span class="tag tag-permission">权限</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="selection">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Campaign 2.0 中所有 Selection Pool 突然不见了，如何解决？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>此问题需要平台管理员排查后台数据。</p>
-          <ul>
-            <li>截图并提供 Campaign URL 给 <strong>@Tian Bu (卜天)</strong></li>
-            <li>联系时附上 Single Campaign 详情链接</li>
-          </ul>
-          <div class="tip">💡 可能原因：数据同步异常或 Pool 状态被意外重置。</div>
-          <div><span class="tag tag-bug">系统异常</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="selection">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Local Grading 中已将产品标为 "Hook"，但 Selection Pool 运行后没有结果，为什么？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 常见原因</span>
-          <ul>
-            <li>确认 Grading 状态已保存并生效（不是草稿状态）</li>
-            <li>检查 Selection Pool 的筛选条件是否与 Grading 设置一致</li>
-            <li>等待系统计算（通常几分钟至几十分钟）</li>
-            <li>若仍无结果，联系 <strong>@Wenlu Gan (甘雯露)</strong> 协助排查，提供 Campaign 和 Pool 链接</li>
-          </ul>
-          <div><span class="tag tag-howto">Grading</span><span class="tag tag-bug">数据同步</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="selection">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">创建 ANT Selection Pool 报错 "ProductType not support: Activity Product"，如何解决？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>这是在 TNT Pool 中上传了 ANT Activity 产品导致的类型不匹配。</p>
-          <ul>
-            <li>确认你操作的是正确的 Pool 类型：ANT 产品应放入 <strong>ANT Pool</strong>，不能放入 TNT Pool</li>
-            <li>Pool A（日游/ANT）和 Pool B（TNT）是分开的，请在对应的 Pool 下操作</li>
-          </ul>
-          <div class="note">📌 Pool A 通常对应 ANT/日游产品，Pool B 对应 TNT/旅行套餐产品。</div>
-          <div><span class="tag tag-bug">报错 17128</span><span class="tag tag-howto">ANT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="selection">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Grading 只有38个酒店，但 Selection Pool 生成了110个酒店，数量为什么会增加？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 常见原因</span>
-          <ul>
-            <li>Selection Pool 的筛选规则可能未限定只使用 Grading 结果，还包含了其他来源的酒店</li>
-            <li>检查 Pool 的来源设置（sourcing rule vs manual）</li>
-            <li>联系 <strong>@Tian Bu (卜天)</strong> 协助确认 Pool 配置是否正确</li>
-          </ul>
-          <div><span class="tag tag-bug">数据异常</span><span class="tag tag-howto">Hotel</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="selection">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Selection Pool 设置的可选时间最长只有2个月吗？酒店7月才有房，能超过2个月限制吗？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 系统限制</span>
-          <p>目前系统对 Selection Pool 时间范围有限制，具体上限需确认。</p>
-          <ul>
-            <li>联系 <strong>@Tian Bu (卜天)</strong> 确认当前系统支持的最长时间范围</li>
-            <li>若确实存在2个月限制，可能需要分段配置 Pool</li>
-          </ul>
-          <div><span class="tag tag-bug">系统限制</span><span class="tag tag-howto">Hotel</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="selection">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">创建/编辑 Hotel Selection Pool 报错 "unknown error"（upsertHotelSelectionSchema），如何处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>"unknown error" 通常是后台服务异常。</p>
-          <ul>
-            <li>截图报错信息（包含 MESSAGE ID 和 TIME），提供给 <strong>@Tian Bu (卜天)</strong></li>
-            <li>说明操作内容（如"手动上传，按城市分组排序"）</li>
-            <li>提供完整的 Campaign URL 和 EID</li>
-          </ul>
-          <div><span class="tag tag-bug">报错 17128</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. Flash Sale / 秒杀 -->
-    <div class="category" data-cat="flashsale" id="flashsale">
-      <div class="category-header">
-        <div class="category-icon" style="background:#fce7f3;">⚡</div>
-        <h2>Flash Sale / 秒杀配置</h2>
-        <span class="badge">6 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="flashsale">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">配置秒杀后页面显示"售罄"，但实际上还没到秒杀时间、主流程可以正常购买，是什么原因？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 常见原因</span>
-          <ul>
-            <li>秒杀时间在 QA 的15分钟内，且 QA 已全部通过 —— 这是正常的"预热"状态展示，属于预期行为</li>
-            <li>如果时间已到还显示售罄，检查 Flash Sale Pool 中的库存配置</li>
-            <li>联系 <strong>@Junfeng Zhang (张俊峰)</strong> 协助排查具体原因</li>
-          </ul>
-          <div class="note">📌 秒杀开始前15分钟内页面展示"售罄"属正常预热逻辑。</div>
-          <div><span class="tag tag-howto">秒杀</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="flashsale">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">ANT Flash Sale 产品更新后，状态一直显示"calculating"超过2天，如何处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <ul>
-            <li>正常情况下 "calculating" 应在几小时内完成</li>
-            <li>超过24小时仍在 calculating：联系 <strong>@Wenlu Gan (甘雯露)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong></li>
-            <li>提供 Campaign 链接和产品列表截图</li>
-          </ul>
-          <div class="tip">💡 同样适用于 Train 产品 Pool 长时间 calculating 的问题。</div>
-          <div><span class="tag tag-bug">系统异常</span><span class="tag tag-howto">ANT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="flashsale">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">上传 ANT Flash Sale 产品报错 "insertForId TTntSubsidy failed"，如何处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>该错误（INTERFACE: uploadFlashPoolProduct）是后台补贴数据写入失败。</p>
-          <ul>
-            <li>提供完整报错信息（MESSAGE ID + TIME）给 <strong>@Wenlu Gan (甘雯露)</strong></li>
-            <li>说明具体 Campaign、Pool ID 和上传的产品</li>
-          </ul>
-          <div><span class="tag tag-bug">报错 17128</span><span class="tag tag-howto">ANT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="flashsale">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Flash Sale Pool 创建 QA 任务报错 "Please fill in the 'preheat cover price' in the flash sale pool"，如何解决？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>这个报错提示很明确：Flash Sale Pool 中缺少 <strong>preheat cover price（预热封面价格）</strong>字段。</p>
-          <ul>
-            <li>返回 Flash Sale Pool 设置页面</li>
-            <li>找到 "preheat cover price" 字段并填写</li>
-            <li>保存后重新创建 QA Task</li>
-          </ul>
-          <div><span class="tag tag-howto">Flash Sale</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="flashsale">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">配置了ANT秒杀组件（2.0），上传了2个 selling date 共4个产品，但只展示1个 selling date 的1个产品，原因是什么？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <ul>
-            <li>联系 <strong>@Junfeng Zhang (张俊峰)</strong> 排查 Flash Sale Pool 数据</li>
-            <li>提供 Fox Page 链接、2.0 秒杀池链接和站点信息</li>
-            <li>可能原因：多个 selling date 之间有冲突，或部分产品 QA 未通过</li>
-          </ul>
-          <div><span class="tag tag-bug">ANT</span><span class="tag tag-howto">秒杀</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="flashsale">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">配置3天2晚的酒店房型秒杀时，"Maximum Effective USP In Target Currency (After Tax)" 应该填2晚总价还是单晚补贴？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>这个字段的含义是"目标货币中最大有效 USP（税后）"，具体填法应以 Mechanism 配置文档为准。</p>
-          <ul>
-            <li>联系 <strong>@Tian Bu (卜天)</strong> 或 <strong>@Wenlu Gan (甘雯露)</strong> 确认3天2晚场景的正确填法</li>
-            <li>如果 preview 不显示单晚价格，提供截图一并反馈</li>
-          </ul>
-          <div><span class="tag tag-howto">秒杀</span><span class="tag tag-config">Mechanism</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. QA 审核 -->
-    <div class="category" data-cat="qa" id="qa">
-      <div class="category-header">
-        <div class="category-icon" style="background:#f0fdf4;">✅</div>
-        <h2>QA 审核问题</h2>
-        <span class="badge">4 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="qa">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Hotel QA 失败，但 "View" 按钮是灰色无法查看失败原因，如何获取详情？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>QA 详情灰色是系统已知问题，前台无法直接查看原因。</p>
-          <ul>
-            <li>联系 <strong>@Tian Bu (卜天)</strong>，提供 QA Task 链接和失败酒店 ID</li>
-            <li>管理员可以在后台查看具体失败原因</li>
-          </ul>
-          <div class="tip">💡 常见失败原因：RP 有 masking rule（价格屏蔽规则）、无可用房间、价格不满足活动要求等。</div>
-          <div><span class="tag tag-bug">QA</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="qa">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">ANT 产品 Grading 通过，但不显示 "Examination Passed"（GB），或通过后只显示 "View Feedback" 而不是 "Modify" 按钮（ES），如何解决？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <ul>
-            <li>联系 <strong>@Wenlu Gan (甘雯露)</strong>，说明站点（GB/ES）和具体 Campaign</li>
-            <li>不显示 "Examination Passed"：可能是 Grading 结果未同步</li>
-            <li>只有 "View Feedback" 而无 "Modify"：需要确认产品状态是否正确流转到可编辑阶段</li>
-          </ul>
-          <div><span class="tag tag-bug">QA</span><span class="tag tag-howto">ANT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="qa">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">酒店一口价秒杀 QA 结果显示 subsidy status 失败，但 QA 结果本身显示正常，是什么问题？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 常见原因</span>
-          <ul>
-            <li>Subsidy（补贴）配置有问题，即使 QA 通过，补贴数据可能未成功写入</li>
-            <li>同一场次不同时间（如5/12失败、5/14成功）：可能是酒店在5/12有价格或库存变化</li>
-          </ul>
-          <p style="margin-top:8px">联系 <strong>@Tian Bu (卜天)</strong> 提供 Mechanism 链接和失败酒店 ID。</p>
-          <div><span class="tag tag-bug">QA</span><span class="tag tag-howto">秒杀</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="qa">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">酒店在 Vacation-OS Flash Sale QA 中，BD 已经解除限制，为什么 QA 还是失败？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <ul>
-            <li>BD 解除限制后需要等待系统缓存刷新（通常几分钟）再重跑 QA</li>
-            <li>如果仍然失败，查看后台详情：可能是该房型暂时无可用房间</li>
-            <li>联系 <strong>@Ada Li (李嘉裕)</strong> 确认酒店实时房态</li>
-          </ul>
-          <div><span class="tag tag-bug">QA</span><span class="tag tag-howto">Hotel</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. 页面展示 -->
-    <div class="category" data-cat="display" id="display">
-      <div class="category-header">
-        <div class="category-icon" style="background:#fef9c3;">🖥️</div>
-        <h2>页面展示问题</h2>
-        <span class="badge">4 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="display">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">酒店在 Selection Pool 中已配置且计算完成，但活动页面上不显示或显示数量少于上传的 Pool，如何排查？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 排查步骤</span>
-          <ul>
-            <li><strong>步骤1</strong>：确认 Pool 状态已是"calculated"而非"calculating"</li>
-            <li><strong>步骤2</strong>：检查 Foxpage 中该组件绑定的 Pool ID 是否正确</li>
-            <li><strong>步骤3</strong>：确认酒店房型在活动 check-in 日期是否有可用房间（已售罄的不展示）</li>
-            <li><strong>步骤4</strong>：若仍有问题，联系 <strong>@Tian Bu (卜天)</strong>，提供 Pool ID 和 Campaign 链接</li>
-          </ul>
-          <div class="note">📌 Foxpage 中的 poolId 必须与 Campaign 2.0 中实际的 Pool ID 一致。</div>
-          <div><span class="tag tag-bug">展示异常</span><span class="tag tag-howto">Hotel</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="display">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">酒店在页面显示"售罄"，但实际在酒店详情页有可用房间，原因是什么？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 常见原因</span>
-          <ul>
-            <li>活动价格限制：酒店有可用房间，但价格不满足活动价格要求（如活动价 > 房间实际价）</li>
-            <li>Flash Sale 时间还未开始：秒杀前15分钟内展示售罄属正常</li>
-            <li>RP（Rate Plan）有 masking rule：限制了在活动中的展示</li>
-            <li>活动日期范围内无价格或库存</li>
-          </ul>
-          <p style="margin-top:8px">联系 <strong>@Tian Bu (卜天)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong>，提供酒店 ID 和活动页链接。</p>
-          <div><span class="tag tag-bug">售罄</span><span class="tag tag-howto">Hotel</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="display">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">ANT 产品没有配置某城市，但页面上仍然展示了该城市，是什么原因？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 常见原因</span>
-          <ul>
-            <li>城市组件可能存在缓存，或 Pool 配置中仍有该城市数据未清除</li>
-            <li>联系 <strong>@Wenlu Gan (甘雯露)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong> 排查</li>
-            <li>提供页面链接和具体展示异常的城市</li>
-          </ul>
-          <div><span class="tag tag-bug">ANT</span><span class="tag tag-bug">展示异常</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="display">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">活动页面酒店的国家/地区顺序与 Campaign 2.0 中设置的顺序不一致，如何修正？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <ul>
-            <li>检查 Campaign 2.0 Selection Pool 中的 "group" 和 "sort" 设置</li>
-            <li>确认 Foxpage 中组件的展示排序配置是否与 2.0 设置一致</li>
-            <li>如果前后台均正确但仍不一致，联系 <strong>@Tian Bu (卜天)</strong> 排查</li>
-          </ul>
-          <div><span class="tag tag-bug">展示异常</span><span class="tag tag-howto">Hotel</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. Mechanism & Marketing -->
-    <div class="category" data-cat="mechanism" id="mechanism">
-      <div class="category-header">
-        <div class="category-icon" style="background:#fff1f2;">⚙️</div>
-        <h2>Mechanism & Marketing Application</h2>
-        <span class="badge">4 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="mechanism">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Marketing Application 编辑时报错 "Duplicate key com.ctrip.ibu.campaign.nexus.entity.CampaignApplicationCouponPlay@..."，如何解决？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>该报错（INTERFACE: editApplication）是因为添加了重复的 Coupon Play ID。</p>
-          <ul>
-            <li>检查当前 Marketing Application 中是否已经添加了相同的 Play ID</li>
-            <li>系统不允许同一个 Play ID 添加多次</li>
-            <li>如需要配置多个不同的 Play，确保每个 Play ID 唯一</li>
-            <li>如仍有问题，联系 <strong>@Tian Bu (卜天)</strong> 提供完整报错信息</li>
-          </ul>
-          <div><span class="tag tag-bug">报错 17128</span><span class="tag tag-howto">MKT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="mechanism">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Marketing Application 中无法添加多个 Play ID，是系统限制还是操作问题？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 确认方式</span>
-          <ul>
-            <li>确认每次只添加一个 Play ID，然后保存，再添加下一个</li>
-            <li>如果确实无法添加多个，联系 <strong>@Tian Bu (卜天)</strong> 确认当前系统是否支持多 Play ID</li>
-          </ul>
-          <div class="note">📌 部分 Marketing Application 场景确实有 Play ID 数量限制。</div>
-          <div><span class="tag tag-howto">MKT</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="mechanism">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Mechanism 的 confirmation/subsidies 界面，能否一键通过所有产品？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 当前状态</span>
-          <p>目前 2.0 系统暂不支持批量一键通过 Confirmation/Subsidies，需逐一审核。</p>
-          <ul>
-            <li>如业务上有批量操作需求，可向 <strong>@Tian Bu (卜天)</strong> 提出功能需求</li>
-          </ul>
-          <div><span class="tag tag-howto">Mechanism</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="mechanism">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">修改活动标题时报错 "exception when creating lark message"（updateMainCampaign），什么原因？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>该错误是系统在更新活动时尝试发送飞书通知消息失败，属于后台消息推送异常。</p>
-          <ul>
-            <li>此类错误通常不影响实际数据更新，可尝试再操作一次</li>
-            <li>若多次失败，联系 <strong>@Tian Bu (卜天)</strong> 提供 MESSAGE ID 排查</li>
-          </ul>
-          <div><span class="tag tag-bug">系统异常</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 8. 系统 & 配置 -->
-    <div class="category" data-cat="system" id="system">
-      <div class="category-header">
-        <div class="category-icon" style="background:#f0f9ff;">🔧</div>
-        <h2>系统配置 & 通用问题</h2>
-        <span class="badge">4 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="system">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">某些字段（如折扣相关字段）无法手动修改，是根据立减设定自动填入的，能人工更改吗？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 系统设计</span>
-          <p>部分字段在 Campaign 2.0 中是自动计算字段，不支持手动修改。</p>
-          <ul>
-            <li>根据立减（Direct Discount）自动带入的字段属于联动计算结果，系统设计上为只读</li>
-            <li>若确实需要修改源头值，应修改对应的立减配置</li>
-            <li>如有特殊需求，联系 <strong>@Tian Bu (卜天)</strong> 确认是否有后台修改途径</li>
-          </ul>
-          <div><span class="tag tag-howto">配置</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="system">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">活动在 Campaign 1.0 中已配好 Basic Info 和 Mechanism，有必要迁移到 2.0 吗？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 参考建议</span>
-          <ul>
-            <li>如果活动即将上线（如5.4上线），且1.0配置已完整，<strong>没有必要强制迁移</strong></li>
-            <li>Campaign 2.0 提供更多自动化功能（如自动 Sourcing、Grading、QA），适合新建活动使用</li>
-            <li>已在1.0配好的活动维持原配置即可，避免临上线前迁移引发风险</li>
-          </ul>
-          <div class="note">📌 建议新活动从 2.0 开始配置，现有1.0活动不需要强制迁移。</div>
-          <div><span class="tag tag-howto">迁移</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="system">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">页面或系统中显示 "China"，能否改成 "内地" 或 "Mainland"？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 功能请求</span>
-          <p>这是产品侧的文案配置问题，不是运营可以自行修改的。</p>
-          <ul>
-            <li>可以在群内提出需求，联系 <strong>@Tian Bu (卜天)</strong> 或产品团队评估</li>
-            <li>如果是 Foxpage 组件文案，可以联系 <strong>@Darong Xiao (肖达荣)</strong> 或 <strong>@Minnan Wang (王敏楠)</strong> 修改</li>
-          </ul>
-          <div><span class="tag tag-howto">文案</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="system">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Campaign 2.0 中报错 "cannot found campaign activity by subSourcingId:0"，是什么原因？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>该报错（配置酒店秒杀时出现，PARAM_ERROR）说明秒杀配置中的 subSourcingId 为0，即未找到关联的 Sourcing 记录。</p>
-          <ul>
-            <li>确认秒杀活动对应的 Sourcing 是否已经正确创建并关联</li>
-            <li>检查 Campaign 的 sub sourcing 配置是否有遗漏</li>
-            <li>联系 <strong>@Tian Bu (卜天)</strong>，提供报错截图和 Campaign 链接</li>
-          </ul>
-          <div><span class="tag tag-bug">报错</span><span class="tag tag-howto">秒杀</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 9. Foxpage 页面问题（近30天群聊汇总） -->
-    <div class="category" data-cat="foxpage" id="foxpage">
-      <div class="category-header">
-        <div class="category-icon" style="background:#fef2f2;">📄</div>
-        <h2>Foxpage 页面问题（近30天）</h2>
-        <span class="badge">15 个问题</span>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">线上组件发布后，引用组件的页面多久同步到最新版本？堡垒环境呢？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 回答</span>
-          <ul>
-            <li>线上页面大概最慢 <strong>40 秒</strong>同步到最新版本，不同机器先后顺序不同</li>
-            <li>堡垒环境同样会同步到最新发布版本（除非你专门发布了堡垒版本）</li>
-            <li>对线上已存在组件做大改动想验证回归时，可<strong>发布堡垒版本</strong>，再用堡垒插件或 baolei 平台访问页面 URL 测试</li>
-          </ul>
-          <div class="tip">💡 不想影响老页面：发堡垒版本 + 在堡垒环境搭建测试页面访问。</div>
-          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">发布</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">hotel-general 日期选择器只能选未来 60 天，更远的日期选不了，怎么办？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 现状</span>
-          <p>Campaign 2.0 中，hotel-general 组件的日历筛选器默认可选范围是<strong>当前日期 + 60 天</strong>，1.0 上能配置的最大日期范围字段在 2.0 已被去掉。</p>
-          <ul>
-            <li>如需扩展（例如 t+90），联系 <strong>@Candice Wu (邬欣颖)</strong> 或 <strong>@Darong Xiao (肖达荣)</strong> 评估</li>
-            <li>这是前端展示限制，但会影响后续下单流程的时间匹配</li>
-          </ul>
-          <div><span class="tag tag-bug">限制</span><span class="tag tag-howto">酒店</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">tabs-navigation-bar 怎么实现点击 tab 跳转到页面指定楼层（锚点）？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>把组件升级为 <span class="code">@ctrip/cloud-component-sales-tabs-navigation-bar-v2</span>，它支持通过锚点跳转：</p>
-          <ul>
-            <li>URL hash：<span class="code">https://xxx.html#hotel</span></li>
-            <li>URL 参数：<span class="code">https://xxx.html?anchor=hotel</span></li>
-            <li>锚点名取自 tab 名（在组件配置中可调）</li>
-          </ul>
-          <div class="note">📌 旧版 tabs-navigation-bar 不支持锚点；link-wrapper 嵌套 headline 也不支持 # 锚点（只接受 URL 输入）。</div>
-          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">导航</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">把旧页面 copy 到新页面失败、剪贴板粘贴为空，怎么办？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>Foxpage 跨页面复制要求两个页面 URL 都使用 <strong>https</strong>。</p>
-          <ul>
-            <li>检查浏览器地址栏，把 <span class="code">http://admin.foxpage...</span> 手动改为 <span class="code">https://admin.foxpage...</span></li>
-            <li>新旧页面都用 https 后再 copy/paste</li>
-          </ul>
-          <div class="tip">💡 同样适用于 "Copy to Clipboard"：源页和目标页必须都是 https。</div>
-          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-bug">复制</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">优惠券组件在小语种站点（如 RU）单词太长导致溢出/换行遮挡，怎么处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 临时处理</span>
-          <ul>
-            <li>常规字号是 20px，溢出时可临时缩到 <strong>14px</strong>（与商卡价格的最小字号规则保持一致）</li>
-            <li>调整时需让该用户先<strong>退出页面编辑</strong>（直接关浏览器要等几分钟才识别断开）</li>
-            <li>联系 <strong>@Darong Xiao (肖达荣)</strong> 临时处理；产品侧后续会规划单词溢出场景的优化</li>
-            <li>也可与运营协商精简券名</li>
-          </ul>
-          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-bug">布局</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">EDM 中 countdown 倒计时背景色改不了 / 倒计时单位文案要改成缩写（如 "j" 代替 "jours"）</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 说明</span>
-          <ul>
-            <li>EDM 中的倒计时本质是<strong>服务端动态生成的图片</strong>，不支持暗黑模式，背景色无法修改</li>
-            <li>单位文案由 Shark 提供，APPID <span class="code">55555</span>，shark key <span class="code">countdown_days</span></li>
-            <li>修改文案联系 <strong>@Candice Wu (邬欣颖)</strong></li>
-          </ul>
-          <div><span class="tag tag-howto">EDM</span><span class="tag tag-howto">文案</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">机票组件设置了"卡片限制 3 张"，但页面仍然平铺所有货品，为什么？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 原因 & 解决</span>
-          <p>"设置一页展示卡片个数"这个属性<strong>历史上只在 1.0 模式下生效</strong>。如果你填的是 <strong>poolId</strong>（即 2.0 货源），属性会被忽略。</p>
-          <ul>
-            <li>2026-04 已支持：2.0 模式下也支持卡片个数限制（已发布）</li>
-            <li>如仍有问题，联系 <strong>@Darong Xiao (肖达荣)</strong> + <strong>@Minnan Wang (王敏楠)</strong></li>
-          </ul>
-          <div><span class="tag tag-howto">机票</span><span class="tag tag-config">2.0</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">已发布的版本误操作覆盖了，能回退吗？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 解决方案</span>
-          <p>支持<strong>整版本回退</strong>，但只能整体回退，不能只挑某个组件。</p>
-          <ul>
-            <li>建议做法：保留当前版本，去历史版本里<strong>把所需组件复制出来</strong>，粘贴到新版本上发布</li>
-            <li>需要彻底回退到 v66 等历史版本：联系 <strong>@Darong Xiao (肖达荣)</strong>，注意之后再编辑的版本不能基于历史版本继续</li>
-            <li>foxpage 草稿与 live 不一致时，可请 <strong>@Yihui Deng (邓怡辉)</strong> 删除当前草稿</li>
-          </ul>
-          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">发布</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">设置 condition 时间后，重新打开看到的是 GMT+8，业务需要的是本地时区，怎么处理？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 系统设计</span>
-          <ul>
-            <li>Condition 时间会按<strong>当前 Campaign 的时区</strong>展示（不是浏览器本地时区）</li>
-            <li>实际保存的时间是你点击 Save 那一刻的设定值</li>
-            <li>如果显示与预期不一致，联系 <strong>@Tian Bu (卜天)</strong> 排查 Campaign 2.0 时区配置</li>
-          </ul>
-          <div><span class="tag tag-config">时区</span><span class="tag tag-howto">condition</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">Foxpage 模板列表突然找不到自己创建的页面，是 bug 吗？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 原因</span>
-          <p>"样板"列表里只显示<strong>已发布</strong>的页面。当天创建但未发布的页面会被自动过滤掉。</p>
-          <ul>
-            <li>试着发布一个页面后，模板列表会重新出现</li>
-            <li>底部如有"加载更多"按钮也可点击试试</li>
-          </ul>
-          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">模板</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">想给 top navigation 的某个 tab 单独配置展示条件（如只对新客显示），可以吗？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 当前限制</span>
-          <p>原生不支持给单个 tab 设置 condition。<strong>变通方法</strong>：</p>
-          <ul>
-            <li>复制一份导航栏组件</li>
-            <li>原导航栏只对老用户显示，复制版只对新用户显示，并各自删掉不该出现的 tab</li>
-            <li>整体导航栏维度上分别设置 condition</li>
-          </ul>
-          <div class="tip">💡 经验证可用，会让 Foxpage 编辑页变长，但效果符合预期。</div>
-          <div><span class="tag tag-howto">导航</span><span class="tag tag-howto">condition</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">app-only / online-only / app+online 条件混用时，模块在 preview 里展示不出来</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 排查思路</span>
-          <ul>
-            <li>检查 condition 与组件属性的 binding 是否完整（"有个属性没有绑定好"是常见原因）</li>
-            <li>确认 preview 链接的 locale / 设备类型是否匹配该 condition</li>
-            <li>同样的 condition 复制到其他页面后<strong>不会自动同步</strong>：condition 通过组件 ID 绑定，复制后 ID 重新生成，需手动重新设置 link</li>
-            <li>仍异常联系 <strong>@Darong Xiao (肖达荣)</strong> / <strong>@Linlong Li (李林龙)</strong></li>
-          </ul>
-          <div><span class="tag tag-howto">condition</span><span class="tag tag-bug">展示</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">flash-sale-v3 / hotel / tnt-products 整个组件没有渲染或没有发请求，怎么排查？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">✅ 排查 checklist</span>
-          <ul>
-            <li><strong>检查 slot 是否真的存在</strong>（getPartitionInfo 返回空数据 = 没有该 slot）</li>
-            <li><strong>检查分组类型</strong>：slot 配置 CITY 分组但 POI/酒店没有城市信息时不会进入，改为 <span class="code">No Group</span></li>
-            <li>国内酒店和国外酒店<strong>不能放同一分组</strong>，要按国家分组</li>
-            <li>货品<strong>没有价格</strong>会被前端过滤（ANT 货品要在 ANT 后台配价）</li>
-            <li>货品<strong>状态码 7</strong>（不在售也不售罄）会自动隐藏按钮</li>
-            <li>组件可能被嵌套在某个 tab 下，前端实际上有发请求</li>
-            <li>新建货品有数据延迟，等几分钟再看</li>
-          </ul>
-          <div><span class="tag tag-howto">排查</span><span class="tag tag-howto">货品</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">多 locale 共享预算的多币种优惠券，foxpage 上某些 locale 显示"已失效/Fully issued"</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 系统限制</span>
-          <p>Foxpage 优惠券组件<strong>暂不支持多币种券共享预算</strong>：因历史原因不会换算币种，直接用面值绝对值与库存余额绝对值比较，导致 VN/ID 等大面值货币被算成"无库存"。</p>
-          <p><strong>两种解决方案：</strong></p>
-          <ul>
-            <li>方案 1：按 locale 拆分独立优惠券（每个 locale 自己的库存）</li>
-            <li>方案 2：把"金额库存"换算成"次数库存"，使用次数库存作为总库存</li>
-            <li>同一 link 不同用户看到状态不同时，让 <strong>@Qingfeng Wang (王庆丰)</strong> 按 UID 查访问记录</li>
-          </ul>
-          <div class="note">📌 不要在金额做库存的优惠券上配置多币种。</div>
-          <div><span class="tag tag-howto">优惠券</span><span class="tag tag-bug">库存</span></div>
-        </div>
-      </div>
-
-      <div class="faq-item" data-cat="foxpage">
-        <div class="faq-q" onclick="toggle(this)">
-          <div class="q-icon">Q</div>
-          <div class="question-text">某些活动机制（如 Share 任务、Lucky Draw）找不到了，是不是被下掉了？</div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="faq-a">
-          <span class="answer-label">⚠️ 已下线</span>
-          <ul>
-            <li><strong>Share 任务</strong>：已下线 2-3 年以上，分享相关组件全部移除（Share 完成定义本来就只是"点击按钮"，无法验证真实分享）</li>
-            <li><strong>Lucky Draw 抽奖</strong>：老旧机制，已不再使用；如必须做抽奖，建议用<strong>任务机制</strong>收集符合条件的用户清单，线下抽奖后人工发奖</li>
-            <li><strong>Custom group / 手动分组（机票）</strong>：2.0 不支持，未来也不计划支持，统一走 auto group；要手动分组只能用 Foxpage tab 实现</li>
-            <li><strong>新客礼包 / 学生礼包</strong>：新客礼包是单独实现的组件；学生礼包不支持，需重新开发（IBU 活动场景可向 PM 提需）</li>
-          </ul>
-          <div><span class="tag tag-howto">机制</span><span class="tag tag-howto">下线</span></div>
-        </div>
-      </div>
-    </div>
-
-
-  </div><!-- /main -->
-</div><!-- /container -->
+    <!-- Main -->
+    <div class="main">
+      <div class="stats">
+        <div class="stat-card"><div class="num">51</div><div class="label"><span class="zh">归纳问题总数</span><span class="en">Total distilled questions</span></div></div>
+        <div class="stat-card"><div class="num">15</div><div class="label"><span class="zh">近30天群聊新增</span><span class="en">Added in last 30 days</span></div></div>
+        <div class="stat-card"><div class="num">13</div><div class="label"><span class="zh">涉及报错代码</span><span class="en">With error codes</span></div></div>
+        <div class="stat-card"><div class="num">9</div><div class="label"><span class="zh">问题分类</span><span class="en">Categories</span></div></div>
+      </div>
+
+      <div id="no-results" class="no-results">
+        <div class="icon">🔍</div>
+        <p><span class="zh">未找到匹配的问题，请尝试其他关键词</span><span class="en">No matching questions — try a different keyword</span></p>
+      </div>
+
+      <!-- 1. Permission -->
+      <div class="category" data-cat="permission" id="permission">
+        <div class="category-header">
+          <div class="category-icon" style="background:#fef3c7;">🔐</div>
+          <h2><span class="zh">权限问题</span><span class="en">Permission Issues</span></h2>
+          <span class="badge"><span class="zh">7 个问题</span><span class="en">7 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="permission">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">报错 "No permission for the theme of this campaign"，无法访问 Campaign，怎么解决?</span>
+              <span class="en">Getting "No permission for the theme of this campaign" and can't access the campaign — how to fix?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">这是最常见的权限报错，原因是你没有该 campaign 所属 <strong>Theme</strong> 的访问权限。</span>
+              <span class="en">This is the most common permission error — you lack access to the <strong>Theme</strong> the campaign belongs to.</span>
+            </p>
+            <ul>
+              <li><span class="zh">在报错信息中找到 Theme 名称(如 <span class="code">DE_Double_day_local_mega</span>)</span><span class="en">Find the Theme name in the error message (e.g. <span class="code">DE_Double_day_local_mega</span>)</span></li>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 申请对应 Theme 权限</span><span class="en">Contact <strong>@Tian Bu</strong> to request access to that Theme</span></li>
+              <li><span class="zh">提供你的 EID、需要的 Theme 名称及访问的 Campaign URL</span><span class="en">Provide your EID, the Theme name, and the Campaign URL you're trying to open</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 如果已有 theme 权限还是打不开，确认申请的 theme 和 campaign 所属 theme 完全一致(注意大小写)。</span>
+              <span class="en">💡 If you already have theme permission and it still fails, verify the theme name matches exactly (case-sensitive).</span>
+            </div>
+            <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="permission">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">如何申请编辑某个 Campaign 的权限(如修改 Campaign 信息)?</span>
+              <span class="en">How do I get edit permission for a campaign (e.g. to modify campaign info)?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">报错信息中会包含 <span class="code">you don't have the THEME permission: &lt;主题名&gt;, please contact admin(&lt;管理员名&gt;) to apply</span></span>
+              <span class="en">The error message includes <span class="code">you don't have the THEME permission: &lt;theme&gt;, please contact admin(&lt;admin&gt;) to apply</span></span>
+            </p>
+            <ul>
+              <li><span class="zh">直接联系报错中提示的管理员(如 <strong>TIAN BU / 卜天</strong>)申请权限</span><span class="en">Contact the admin named in the error (e.g. <strong>TIAN BU</strong>) directly</span></li>
+              <li><span class="zh">在群内 @ 管理员，说明你的 EID、Team 和需要访问的 Campaign URL</span><span class="en">@ them in the group with your EID, team, and target Campaign URL</span></li>
+            </ul>
+            <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="permission">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">我是 "campaign participant" 角色，但无法在 2.0 新建 Single Campaign，需要额外申请什么权限?</span>
+              <span class="en">I'm a "campaign participant" but can't create a new Single Campaign in 2.0 — what extra permission do I need?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh"><strong>campaign participant</strong> 角色只有参与权限，新建 Campaign 需要更高权限。</span>
+              <span class="en">The <strong>campaign participant</strong> role is participation-only — creating a campaign requires higher privileges.</span>
+            </p>
+            <ul>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 申请对应 Theme 的 <strong>操作权限</strong>(而不仅仅是参与权限)</span><span class="en">Ask <strong>@Tian Bu</strong> for <strong>operator</strong> permission on the Theme (not just participant)</span></li>
+              <li><span class="zh">说明你要创建 Campaign 的 Theme 和用途</span><span class="en">Explain which Theme you want to create the campaign in, and the use case</span></li>
+            </ul>
+            <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="permission">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">TNT Sourcing 规则提交后，审批人需要更新，如何修改系统中的审批人?</span>
+              <span class="en">A TNT Sourcing rule has been submitted but the approver needs to change — how do I update the approver?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">审批人信息无法在 Campaign 2.0 前台直接修改，需要联系平台管理员处理。</span>
+              <span class="en">Approvers can't be edited from the Campaign 2.0 frontend — a platform admin has to do it.</span>
+            </p>
+            <ul>
+              <li><span class="zh">在群内说明需要更改审批人的 <strong>Sourcing 规则链接</strong> 和 <strong>新审批人的 EID</strong></span><span class="en">Post the <strong>Sourcing rule link</strong> and the <strong>new approver's EID</strong> in the group</span></li>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 或 <strong>@Wenlu Gan (甘雯露)</strong> 在后台修改</span><span class="en">Ask <strong>@Tian Bu</strong> or <strong>@Wenlu Gan</strong> to update it from the backend</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 同样适用于 TripPal 审批流程中更换审批人(通过 Workspace 操作)。</span>
+              <span class="en">📌 Same approach applies to switching approvers in the TripPal flow (done via Workspace).</span>
+            </div>
+            <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span><span class="tag tag-config"><span class="zh">审批流</span><span class="en">Approval flow</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="permission">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">已有 theme 权限，为什么还是报错 "No permission for the theme of this campaign"?</span>
+              <span class="en">I already have theme permission — why am I still getting "No permission for the theme of this campaign"?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 常见原因</span><span class="en">⚠️ Common causes</span></span>
+            <ul>
+              <li><span class="zh">你申请的 theme 名称与该 campaign 实际所属 theme 不一致</span><span class="en">The theme you requested doesn't exactly match the campaign's actual theme</span></li>
+              <li><span class="zh">该 campaign 属于一个你未申请权限的子 theme</span><span class="en">The campaign belongs to a sub-theme you haven't been granted</span></li>
+              <li><span class="zh">权限刚刚被批准，需要等待系统同步(通常几分钟内生效)</span><span class="en">Permission was just approved — system sync usually takes a few minutes</span></li>
+            </ul>
+            <p style="margin-top:8px">
+              <span class="zh">如仍无法解决，截图报错信息后 @ <strong>@Tian Bu (卜天)</strong> 协助排查。</span>
+              <span class="en">If the problem persists, screenshot the error and @ <strong>@Tian Bu</strong> for help.</span>
+            </p>
+            <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="permission">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">HQ 在 Collection 里建 Pool 时，Theme 下只有各市场的选项，没有 HQ 专属 Theme，该选哪个?</span>
+              <span class="en">When HQ creates a Pool inside a Collection, the Theme dropdown only shows market themes — there's no HQ theme. Which one to pick?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">HQ 目前没有独立 Theme，在 Collection 里建 Pool 时需选择对应的市场 Theme，或联系 <strong>@Tian Bu (卜天)</strong> 确认正确的操作方式。</span>
+              <span class="en">HQ currently has no dedicated Theme — pick the corresponding market Theme when creating the Pool, or ask <strong>@Tian Bu</strong> for the correct path.</span>
+            </p>
+            <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span><span class="tag tag-howto"><span class="zh">操作指引</span><span class="en">How-to</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="permission">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">如何在 TripPal 审批流程中添加新的审批人?</span>
+              <span class="en">How do I add a new approver in the TripPal approval flow?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 操作步骤</span><span class="en">✅ Steps</span></span>
+            <ol>
+              <li><span class="zh">打开 TripPal <strong>Workspace</strong>，找到对应的审批入口</span><span class="en">Open TripPal <strong>Workspace</strong> and locate the relevant approval entry</span></li>
+              <li><span class="zh">切换到"审批人管理"标签页</span><span class="en">Switch to the "Approver Management" tab</span></li>
+              <li><span class="zh">点击"添加审批人"，输入新审批人 EID 后保存</span><span class="en">Click "Add Approver", enter the new approver's EID, and save</span></li>
+            </ol>
+            <div><span class="tag tag-howto"><span class="zh">操作指引</span><span class="en">How-to</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Sourcing -->
+      <div class="category" data-cat="sourcing" id="sourcing">
+        <div class="category-header">
+          <div class="category-icon" style="background:#ecfdf5;">📦</div>
+          <h2><span class="zh">招商 &amp; 货单上传</span><span class="en">Sourcing &amp; Inventory Upload</span></h2>
+          <span class="badge"><span class="zh">6 个问题</span><span class="en">6 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="sourcing">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">ANT 上传货单报错 "Wishlist ExpectedHookDeal is invalid: 50% OFF or BOGO"，如何解决?</span>
+              <span class="en">ANT inventory upload throws "Wishlist ExpectedHookDeal is invalid: 50% OFF or BOGO" — how to resolve?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">该错误(SERVICE CODE: 17128, INTERFACE: upsertTntSourcingRule)说明 ANT 货单中存在不合规的 Wishlist 折扣类型。</span>
+              <span class="en">This error (SERVICE CODE: 17128, INTERFACE: upsertTntSourcingRule) means the ANT file has an invalid Wishlist discount type.</span>
+            </p>
+            <ul>
+              <li><span class="zh">检查上传的 ANT sourcing 文件，找到 <span class="code">ExpectedHookDeal</span> 列</span><span class="en">Open the ANT sourcing file and locate the <span class="code">ExpectedHookDeal</span> column</span></li>
+              <li><span class="zh">确认该字段的值格式是否符合系统支持的类型(不能直接填写 "50% OFF" 或 "BOGO" 文字)</span><span class="en">Verify the value format matches what the system accepts — free text like "50% OFF" or "BOGO" is not allowed</span></li>
+              <li><span class="zh">将文件修正后重新上传，或联系 <strong>@Wenlu Gan (甘雯露)</strong> 协助确认正确格式</span><span class="en">Fix the file and re-upload, or ask <strong>@Wenlu Gan</strong> for the correct format</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="sourcing">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Regional 在 HQ KO 前提前发起招商，设置了错误的 Booking Period，被拒绝后系统依然限制 Booking Period 无法更改，如何处理?</span>
+              <span class="en">A regional team kicked off sourcing before HQ KO with a wrong Booking Period; even after rejection the system still locks the Booking Period — what to do?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 紧急处理</span><span class="en">⚠️ Urgent action</span></span>
+            <p>
+              <span class="zh">这是系统 Bug:即使 Regional 招商规则已被拒绝，系统仍会用其 Booking Period 限制后续操作。</span>
+              <span class="en">Known bug: even after a rejected regional sourcing rule, its Booking Period still constrains downstream operations.</span>
+            </p>
+            <ul>
+              <li><span class="zh">立即联系 <strong>@Wenlu Gan (甘雯露)</strong> 并抄送研发</span><span class="en">Page <strong>@Wenlu Gan</strong> immediately and CC engineering</span></li>
+              <li><span class="zh">提供影响的 Campaign 链接和需要修改的正确 Booking Period 时间</span><span class="en">Provide the affected Campaign URL and the correct Booking Period</span></li>
+              <li><span class="zh">需要研发从系统后台手动修改 Booking Period</span><span class="en">Engineering will need to manually fix the Booking Period in the backend</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 预防措施:Global 发起招商前，提前与各 Regional 确认好 KO 时间，避免 Regional 提前操作。</span>
+              <span class="en">💡 Prevention: align KO timing with all regions before Global initiates sourcing, so regions don't jump the gun.</span>
+            </div>
+            <div><span class="tag tag-bug"><span class="zh">系统Bug</span><span class="en">System bug</span></span><span class="tag tag-permission"><span class="zh">招商</span><span class="en">Sourcing</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="sourcing">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">POI ID 报错 "POI ID or Resource ID is error. There is no data from ANT"，如何处理?</span>
+              <span class="en">Getting "POI ID or Resource ID is error. There is no data from ANT" — what now?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">该报错(INTERFACE: upsertTntSelectPool)说明该 POI ID 在 ANT 系统中不存在或未同步。</span>
+              <span class="en">This error (INTERFACE: upsertTntSelectPool) means the POI ID doesn't exist in ANT, or hasn't synced yet.</span>
+            </p>
+            <ul>
+              <li><span class="zh">确认该 POI ID 在 ANT/EBK 系统中是否存在且已上线</span><span class="en">Confirm the POI ID exists and is live in ANT / EBK</span></li>
+              <li><span class="zh">如果 POI 刚提交，等待 ANT 系统同步(可能需要数小时)</span><span class="en">If recently submitted, wait for ANT to sync (can take hours)</span></li>
+              <li><span class="zh">联系 <strong>@Wenlu Gan (甘雯露)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong> 确认数据状态</span><span class="en">Ask <strong>@Wenlu Gan</strong> or <strong>@Junfeng Zhang</strong> to check the data status</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="sourcing">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">ANT 产品提交审核后，状态长时间停留在"待审核"，如何处理?</span>
+              <span class="en">An ANT product is stuck in "pending review" for a long time — how to push it through?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">产品(如景点)提交后在 EBK/POI sourcing 中未反映，可能是同步延迟或审核队列积压。</span>
+              <span class="en">If a product (e.g. an attraction) doesn't show in EBK/POI sourcing after submission, it's likely sync lag or review backlog.</span>
+            </p>
+            <ul>
+              <li><span class="zh">在 EBK 系统检查产品状态</span><span class="en">Check the product's status in EBK</span></li>
+              <li><span class="zh">若超过24小时仍未处理，联系 <strong>@Wenlu Gan (甘雯露)</strong> 并提供产品 ID 和名称</span><span class="en">If &gt; 24h with no progress, ping <strong>@Wenlu Gan</strong> with the product ID and name</span></li>
+            </ul>
+            <div><span class="tag tag-howto">ANT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="sourcing">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">ZOO 系统无法设置当天的招商时间，最早只能选到次日 00:00，如何绕过这个限制?</span>
+              <span class="en">ZOO won't let me set a sourcing time on the current day — earliest selectable is the next day at 00:00. How to work around it?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 系统限制</span><span class="en">⚠️ System limitation</span></span>
+            <p>
+              <span class="zh">ZOO 系统存在设计限制，当日时间无法在前台选择。</span>
+              <span class="en">ZOO has a design limitation: same-day times can't be selected from the frontend.</span>
+            </p>
+            <ul>
+              <li><span class="zh">需要联系 <strong>@Tian Bu (卜天)</strong> 在后台手动添加当天时间</span><span class="en">Ask <strong>@Tian Bu</strong> to set the same-day time from the backend</span></li>
+              <li><span class="zh">联系时提供活动链接和需要设置的具体时间范围</span><span class="en">Provide the campaign link and the exact time range needed</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 例如需设置"当下至某日 22:59:59"，前台无法操作，只能后台处理。</span>
+              <span class="en">📌 E.g. "from now until some date at 22:59:59" — must go through the backend.</span>
+            </div>
+            <div><span class="tag tag-bug"><span class="zh">系统限制</span><span class="en">System limit</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="sourcing">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Collection 中子主题(sub-theme)建错了，Sourcing 已经配好，还能修改子主题吗?</span>
+              <span class="en">Sub-theme inside a Collection was set wrong, Sourcing is already configured — can I still change it?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 注意</span><span class="en">⚠️ Caution</span></span>
+            <p>
+              <span class="zh">Sourcing 配置完成后，子主题是否可以修改取决于当前 Campaign 状态:</span>
+              <span class="en">Once Sourcing is set, whether you can change the sub-theme depends on the campaign's current state:</span>
+            </p>
+            <ul>
+              <li><span class="zh">如果 Campaign 尚未上线，联系 <strong>@Tian Bu (卜天)</strong> 确认是否可在后台修改</span><span class="en">If not yet live, ask <strong>@Tian Bu</strong> if a backend edit is possible</span></li>
+              <li><span class="zh">如果 Campaign 已上线，修改子主题风险较大，需谨慎评估影响</span><span class="en">If already live, changing the sub-theme is high-risk — assess impact carefully</span></li>
+            </ul>
+            <div><span class="tag tag-howto"><span class="zh">配置</span><span class="en">Config</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Selection Pool -->
+      <div class="category" data-cat="selection" id="selection">
+        <div class="category-header">
+          <div class="category-icon" style="background:#ede9fe;">🗂️</div>
+          <h2><span class="zh">Selection Pool 配置</span><span class="en">Selection Pool Configuration</span></h2>
+          <span class="badge"><span class="zh">7 个问题</span><span class="en">7 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="selection">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">建 Selection Pool 报错 "theme not found"(upsertHotelSelectionSchema)，如何处理?</span>
+              <span class="en">Creating a Selection Pool returns "theme not found" (upsertHotelSelectionSchema) — how to handle?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">这说明你的账号没有该 Collection/Campaign 所属 Theme 的权限，或 Theme 配置异常。</span>
+              <span class="en">Your account lacks the Collection/Campaign's Theme permission, or the Theme is misconfigured.</span>
+            </p>
+            <ul>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong>，提供 EID、Campaign URL 和 Team</span><span class="en">Contact <strong>@Tian Bu</strong> with your EID, Campaign URL, and Team</span></li>
+              <li><span class="zh">请求对应 Theme 权限</span><span class="en">Request the matching Theme permission</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="selection">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Campaign 2.0 中所有 Selection Pool 突然不见了，如何解决?</span>
+              <span class="en">All Selection Pools in Campaign 2.0 suddenly disappeared — how to recover?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">此问题需要平台管理员排查后台数据。</span>
+              <span class="en">A platform admin needs to investigate the backend data.</span>
+            </p>
+            <ul>
+              <li><span class="zh">截图并提供 Campaign URL 给 <strong>@Tian Bu (卜天)</strong></span><span class="en">Send a screenshot and the Campaign URL to <strong>@Tian Bu</strong></span></li>
+              <li><span class="zh">联系时附上 Single Campaign 详情链接</span><span class="en">Include the Single Campaign detail link</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 可能原因:数据同步异常或 Pool 状态被意外重置。</span>
+              <span class="en">💡 Likely causes: sync anomaly, or Pool state was inadvertently reset.</span>
+            </div>
+            <div><span class="tag tag-bug"><span class="zh">系统异常</span><span class="en">System anomaly</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="selection">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Local Grading 中已将产品标为 "Hook"，但 Selection Pool 运行后没有结果，为什么?</span>
+              <span class="en">Products are marked "Hook" in Local Grading, but the Selection Pool returns nothing — why?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 常见原因</span><span class="en">⚠️ Common causes</span></span>
+            <ul>
+              <li><span class="zh">确认 Grading 状态已保存并生效(不是草稿状态)</span><span class="en">Verify Grading is saved and active, not in draft</span></li>
+              <li><span class="zh">检查 Selection Pool 的筛选条件是否与 Grading 设置一致</span><span class="en">Check that the Pool's filter criteria match the Grading setup</span></li>
+              <li><span class="zh">等待系统计算(通常几分钟至几十分钟)</span><span class="en">Wait for the system to compute (usually minutes to tens of minutes)</span></li>
+              <li><span class="zh">若仍无结果，联系 <strong>@Wenlu Gan (甘雯露)</strong> 协助排查，提供 Campaign 和 Pool 链接</span><span class="en">If still empty, ask <strong>@Wenlu Gan</strong> to investigate; share Campaign and Pool links</span></li>
+            </ul>
+            <div><span class="tag tag-howto">Grading</span><span class="tag tag-bug"><span class="zh">数据同步</span><span class="en">Data sync</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="selection">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">创建 ANT Selection Pool 报错 "ProductType not support: Activity Product"，如何解决?</span>
+              <span class="en">Creating an ANT Selection Pool throws "ProductType not support: Activity Product" — how to fix?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">这是在 TNT Pool 中上传了 ANT Activity 产品导致的类型不匹配。</span>
+              <span class="en">You uploaded an ANT Activity product into a TNT Pool — that's a type mismatch.</span>
+            </p>
+            <ul>
+              <li><span class="zh">确认你操作的是正确的 Pool 类型:ANT 产品应放入 <strong>ANT Pool</strong>，不能放入 TNT Pool</span><span class="en">Use the right Pool type: ANT products belong in an <strong>ANT Pool</strong>, not a TNT Pool</span></li>
+              <li><span class="zh">Pool A(日游/ANT)和 Pool B(TNT)是分开的，请在对应的 Pool 下操作</span><span class="en">Pool A (day-tours / ANT) and Pool B (TNT) are separate — work in the matching one</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 Pool A 通常对应 ANT/日游产品，Pool B 对应 TNT/旅行套餐产品。</span>
+              <span class="en">📌 Pool A typically maps to ANT / day-tour products; Pool B to TNT / travel package products.</span>
+            </div>
+            <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="selection">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Grading 只有38个酒店，但 Selection Pool 生成了110个酒店，数量为什么会增加?</span>
+              <span class="en">Grading has 38 hotels but the Selection Pool produced 110 — why the increase?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 常见原因</span><span class="en">⚠️ Common causes</span></span>
+            <ul>
+              <li><span class="zh">Selection Pool 的筛选规则可能未限定只使用 Grading 结果，还包含了其他来源的酒店</span><span class="en">The Pool's filter likely isn't restricted to Grading results — it's pulling from other sources too</span></li>
+              <li><span class="zh">检查 Pool 的来源设置(sourcing rule vs manual)</span><span class="en">Check the Pool's source setting (sourcing rule vs. manual)</span></li>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 协助确认 Pool 配置是否正确</span><span class="en">Ask <strong>@Tian Bu</strong> to validate the Pool config</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">数据异常</span><span class="en">Data anomaly</span></span><span class="tag tag-howto">Hotel</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="selection">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Selection Pool 设置的可选时间最长只有2个月吗?酒店7月才有房，能超过2个月限制吗?</span>
+              <span class="en">Is the Selection Pool date range capped at 2 months? Rooms aren't available until July — can I exceed 2 months?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 系统限制</span><span class="en">⚠️ System limit</span></span>
+            <p>
+              <span class="zh">目前系统对 Selection Pool 时间范围有限制，具体上限需确认。</span>
+              <span class="en">There's a date-range cap on Selection Pools — exact limit needs confirmation.</span>
+            </p>
+            <ul>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 确认当前系统支持的最长时间范围</span><span class="en">Ask <strong>@Tian Bu</strong> to confirm the current max range</span></li>
+              <li><span class="zh">若确实存在2个月限制，可能需要分段配置 Pool</span><span class="en">If the 2-month cap is real, you may need to split the Pool into segments</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">系统限制</span><span class="en">System limit</span></span><span class="tag tag-howto">Hotel</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="selection">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">创建/编辑 Hotel Selection Pool 报错 "unknown error"(upsertHotelSelectionSchema)，如何处理?</span>
+              <span class="en">Creating/editing a Hotel Selection Pool throws "unknown error" (upsertHotelSelectionSchema) — what next?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">"unknown error" 通常是后台服务异常。</span>
+              <span class="en">"unknown error" is usually a backend service exception.</span>
+            </p>
+            <ul>
+              <li><span class="zh">截图报错信息(包含 MESSAGE ID 和 TIME)，提供给 <strong>@Tian Bu (卜天)</strong></span><span class="en">Screenshot the error (including MESSAGE ID and TIME) and send to <strong>@Tian Bu</strong></span></li>
+              <li><span class="zh">说明操作内容(如"手动上传，按城市分组排序")</span><span class="en">Describe what you did (e.g. "manual upload, grouped/sorted by city")</span></li>
+              <li><span class="zh">提供完整的 Campaign URL 和 EID</span><span class="en">Provide the full Campaign URL and your EID</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Flash Sale -->
+      <div class="category" data-cat="flashsale" id="flashsale">
+        <div class="category-header">
+          <div class="category-icon" style="background:#fce7f3;">⚡</div>
+          <h2><span class="zh">Flash Sale / 秒杀配置</span><span class="en">Flash Sale Configuration</span></h2>
+          <span class="badge"><span class="zh">6 个问题</span><span class="en">6 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="flashsale">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">配置秒杀后页面显示"售罄"，但实际上还没到秒杀时间、主流程可以正常购买，是什么原因?</span>
+              <span class="en">After configuring a flash sale the page shows "sold out", yet the sale time hasn't started and the main flow can still book — why?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 常见原因</span><span class="en">⚠️ Common causes</span></span>
+            <ul>
+              <li><span class="zh">秒杀时间在 QA 的15分钟内，且 QA 已全部通过 —— 这是正常的"预热"状态展示，属于预期行为</span><span class="en">Within 15 min of sale start with QA all-passed — this is the expected pre-heat "sold out" state</span></li>
+              <li><span class="zh">如果时间已到还显示售罄，检查 Flash Sale Pool 中的库存配置</span><span class="en">If it's after start time, check the Flash Sale Pool's inventory config</span></li>
+              <li><span class="zh">联系 <strong>@Junfeng Zhang (张俊峰)</strong> 协助排查具体原因</span><span class="en">Ask <strong>@Junfeng Zhang</strong> to investigate further</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 秒杀开始前15分钟内页面展示"售罄"属正常预热逻辑。</span>
+              <span class="en">📌 The "sold out" display in the 15 min before sale start is normal pre-heat behavior.</span>
+            </div>
+            <div><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="flashsale">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">ANT Flash Sale 产品更新后，状态一直显示"calculating"超过2天，如何处理?</span>
+              <span class="en">An ANT Flash Sale product has been stuck "calculating" for more than 2 days — how to fix?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <ul>
+              <li><span class="zh">正常情况下 "calculating" 应在几小时内完成</span><span class="en">"calculating" normally completes within a few hours</span></li>
+              <li><span class="zh">超过24小时仍在 calculating:联系 <strong>@Wenlu Gan (甘雯露)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong></span><span class="en">If &gt; 24h: ping <strong>@Wenlu Gan</strong> or <strong>@Junfeng Zhang</strong></span></li>
+              <li><span class="zh">提供 Campaign 链接和产品列表截图</span><span class="en">Provide the Campaign link and a product-list screenshot</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 同样适用于 Train 产品 Pool 长时间 calculating 的问题。</span>
+              <span class="en">💡 Same approach applies to Train product Pools stuck calculating.</span>
+            </div>
+            <div><span class="tag tag-bug"><span class="zh">系统异常</span><span class="en">System anomaly</span></span><span class="tag tag-howto">ANT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="flashsale">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">上传 ANT Flash Sale 产品报错 "insertForId TTntSubsidy failed"，如何处理?</span>
+              <span class="en">Uploading an ANT Flash Sale product throws "insertForId TTntSubsidy failed" — how to handle?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">该错误(INTERFACE: uploadFlashPoolProduct)是后台补贴数据写入失败。</span>
+              <span class="en">This error (INTERFACE: uploadFlashPoolProduct) means the backend failed to write the subsidy record.</span>
+            </p>
+            <ul>
+              <li><span class="zh">提供完整报错信息(MESSAGE ID + TIME)给 <strong>@Wenlu Gan (甘雯露)</strong></span><span class="en">Send the full error details (MESSAGE ID + TIME) to <strong>@Wenlu Gan</strong></span></li>
+              <li><span class="zh">说明具体 Campaign、Pool ID 和上传的产品</span><span class="en">Include the Campaign, Pool ID, and the uploaded product</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="flashsale">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Flash Sale Pool 创建 QA 任务报错 "Please fill in the 'preheat cover price' in the flash sale pool"，如何解决?</span>
+              <span class="en">Creating a QA Task on a Flash Sale Pool errors "Please fill in the 'preheat cover price' in the flash sale pool" — how to resolve?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">这个报错提示很明确:Flash Sale Pool 中缺少 <strong>preheat cover price(预热封面价格)</strong>字段。</span>
+              <span class="en">The error is explicit: the Flash Sale Pool is missing the <strong>preheat cover price</strong> field.</span>
+            </p>
+            <ul>
+              <li><span class="zh">返回 Flash Sale Pool 设置页面</span><span class="en">Go back to the Flash Sale Pool settings</span></li>
+              <li><span class="zh">找到 "preheat cover price" 字段并填写</span><span class="en">Locate "preheat cover price" and fill it in</span></li>
+              <li><span class="zh">保存后重新创建 QA Task</span><span class="en">Save, then re-create the QA Task</span></li>
+            </ul>
+            <div><span class="tag tag-howto">Flash Sale</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="flashsale">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">配置了ANT秒杀组件(2.0)，上传了2个 selling date 共4个产品，但只展示1个 selling date 的1个产品，原因是什么?</span>
+              <span class="en">Configured an ANT flash-sale component (2.0) with 2 selling dates and 4 products, but only 1 product on 1 selling date shows up — why?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <ul>
+              <li><span class="zh">联系 <strong>@Junfeng Zhang (张俊峰)</strong> 排查 Flash Sale Pool 数据</span><span class="en">Ask <strong>@Junfeng Zhang</strong> to investigate the Flash Sale Pool data</span></li>
+              <li><span class="zh">提供 Fox Page 链接、2.0 秒杀池链接和站点信息</span><span class="en">Provide the Foxpage link, the 2.0 Flash Sale Pool link, and the site info</span></li>
+              <li><span class="zh">可能原因:多个 selling date 之间有冲突，或部分产品 QA 未通过</span><span class="en">Likely causes: clashing selling dates, or some products failed QA</span></li>
+            </ul>
+            <div><span class="tag tag-bug">ANT</span><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="flashsale">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">配置3天2晚的酒店房型秒杀时，"Maximum Effective USP In Target Currency (After Tax)" 应该填2晚总价还是单晚补贴?</span>
+              <span class="en">For a 3-day-2-night hotel room flash sale, should "Maximum Effective USP In Target Currency (After Tax)" be the 2-night total or per-night subsidy?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">这个字段的含义是"目标货币中最大有效 USP(税后)"，具体填法应以 Mechanism 配置文档为准。</span>
+              <span class="en">The field means "max effective USP in target currency (after tax)". Use the Mechanism config doc as the source of truth.</span>
+            </p>
+            <ul>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 或 <strong>@Wenlu Gan (甘雯露)</strong> 确认3天2晚场景的正确填法</span><span class="en">Confirm the 3D2N convention with <strong>@Tian Bu</strong> or <strong>@Wenlu Gan</strong></span></li>
+              <li><span class="zh">如果 preview 不显示单晚价格，提供截图一并反馈</span><span class="en">If the preview omits per-night pricing, attach a screenshot in your report</span></li>
+            </ul>
+            <div><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span><span class="tag tag-config">Mechanism</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. QA -->
+      <div class="category" data-cat="qa" id="qa">
+        <div class="category-header">
+          <div class="category-icon" style="background:#f0fdf4;">✅</div>
+          <h2><span class="zh">QA 审核问题</span><span class="en">QA Review Issues</span></h2>
+          <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="qa">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Hotel QA 失败，但 "View" 按钮是灰色无法查看失败原因，如何获取详情?</span>
+              <span class="en">Hotel QA failed but the "View" button is greyed out — how do I see the failure reason?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">QA 详情灰色是系统已知问题，前台无法直接查看原因。</span>
+              <span class="en">The greyed QA detail is a known system issue — the frontend can't show the reason.</span>
+            </p>
+            <ul>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong>，提供 QA Task 链接和失败酒店 ID</span><span class="en">Send the QA Task link and the failed hotel IDs to <strong>@Tian Bu</strong></span></li>
+              <li><span class="zh">管理员可以在后台查看具体失败原因</span><span class="en">Admins can read the specific reasons from the backend</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 常见失败原因:RP 有 masking rule(价格屏蔽规则)、无可用房间、价格不满足活动要求等。</span>
+              <span class="en">💡 Common reasons: RP has a masking rule, no available rooms, price doesn't meet campaign requirements, etc.</span>
+            </div>
+            <div><span class="tag tag-bug">QA</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="qa">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">ANT 产品 Grading 通过，但不显示 "Examination Passed"(GB)，或通过后只显示 "View Feedback" 而不是 "Modify" 按钮(ES)，如何解决?</span>
+              <span class="en">ANT Grading passed but "Examination Passed" doesn't show (GB), or only "View Feedback" appears instead of "Modify" (ES) — how to fix?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <ul>
+              <li><span class="zh">联系 <strong>@Wenlu Gan (甘雯露)</strong>，说明站点(GB/ES)和具体 Campaign</span><span class="en">Tell <strong>@Wenlu Gan</strong> the site (GB/ES) and the specific Campaign</span></li>
+              <li><span class="zh">不显示 "Examination Passed":可能是 Grading 结果未同步</span><span class="en">No "Examination Passed": likely Grading result hasn't synced</span></li>
+              <li><span class="zh">只有 "View Feedback" 而无 "Modify":需要确认产品状态是否正确流转到可编辑阶段</span><span class="en">Only "View Feedback" with no "Modify": verify the product transitioned to an editable stage</span></li>
+            </ul>
+            <div><span class="tag tag-bug">QA</span><span class="tag tag-howto">ANT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="qa">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">酒店一口价秒杀 QA 结果显示 subsidy status 失败，但 QA 结果本身显示正常，是什么问题?</span>
+              <span class="en">Hotel fixed-price flash sale QA shows subsidy status failed, even though the QA result itself looks fine — what's wrong?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 常见原因</span><span class="en">⚠️ Common causes</span></span>
+            <ul>
+              <li><span class="zh">Subsidy(补贴)配置有问题，即使 QA 通过，补贴数据可能未成功写入</span><span class="en">Subsidy config has a problem — even with QA passing, subsidy data may have failed to persist</span></li>
+              <li><span class="zh">同一场次不同时间(如5/12失败、5/14成功):可能是酒店在5/12有价格或库存变化</span><span class="en">Different times in the same session (e.g. fail on 5/12, pass on 5/14): the hotel likely had a price or inventory change on 5/12</span></li>
+            </ul>
+            <p style="margin-top:8px">
+              <span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 提供 Mechanism 链接和失败酒店 ID。</span>
+              <span class="en">Send the Mechanism link and failing hotel IDs to <strong>@Tian Bu</strong>.</span>
+            </p>
+            <div><span class="tag tag-bug">QA</span><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="qa">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">酒店在 Vacation-OS Flash Sale QA 中，BD 已经解除限制，为什么 QA 还是失败?</span>
+              <span class="en">In a Vacation-OS Flash Sale QA, BD already lifted the restriction — why is QA still failing?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <ul>
+              <li><span class="zh">BD 解除限制后需要等待系统缓存刷新(通常几分钟)再重跑 QA</span><span class="en">After BD lifts the restriction, wait a few minutes for cache refresh before re-running QA</span></li>
+              <li><span class="zh">如果仍然失败，查看后台详情:可能是该房型暂时无可用房间</span><span class="en">If it still fails, check backend detail — that room type may be temporarily out of stock</span></li>
+              <li><span class="zh">联系 <strong>@Ada Li (李嘉裕)</strong> 确认酒店实时房态</span><span class="en">Ask <strong>@Ada Li</strong> to confirm live room status</span></li>
+            </ul>
+            <div><span class="tag tag-bug">QA</span><span class="tag tag-howto">Hotel</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Display -->
+      <div class="category" data-cat="display" id="display">
+        <div class="category-header">
+          <div class="category-icon" style="background:#fef9c3;">🖥️</div>
+          <h2><span class="zh">页面展示问题</span><span class="en">Page Display Issues</span></h2>
+          <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="display">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">酒店在 Selection Pool 中已配置且计算完成，但活动页面上不显示或显示数量少于上传的 Pool，如何排查?</span>
+              <span class="en">Hotels are configured and calculated in the Selection Pool, but the campaign page shows none or fewer than the Pool — how to troubleshoot?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 排查步骤</span><span class="en">✅ Troubleshooting steps</span></span>
+            <ul>
+              <li><span class="zh"><strong>步骤1</strong>:确认 Pool 状态已是"calculated"而非"calculating"</span><span class="en"><strong>Step 1</strong>: confirm Pool status is "calculated", not "calculating"</span></li>
+              <li><span class="zh"><strong>步骤2</strong>:检查 Foxpage 中该组件绑定的 Pool ID 是否正确</span><span class="en"><strong>Step 2</strong>: verify the component in Foxpage is bound to the correct Pool ID</span></li>
+              <li><span class="zh"><strong>步骤3</strong>:确认酒店房型在活动 check-in 日期是否有可用房间(已售罄的不展示)</span><span class="en"><strong>Step 3</strong>: confirm rooms are actually available on the campaign's check-in date (sold-out hotels won't display)</span></li>
+              <li><span class="zh"><strong>步骤4</strong>:若仍有问题，联系 <strong>@Tian Bu (卜天)</strong>，提供 Pool ID 和 Campaign 链接</span><span class="en"><strong>Step 4</strong>: if still broken, send Pool ID and Campaign link to <strong>@Tian Bu</strong></span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 Foxpage 中的 poolId 必须与 Campaign 2.0 中实际的 Pool ID 一致。</span>
+              <span class="en">📌 The poolId in Foxpage must exactly match the Pool ID in Campaign 2.0.</span>
+            </div>
+            <div><span class="tag tag-bug"><span class="zh">展示异常</span><span class="en">Display anomaly</span></span><span class="tag tag-howto">Hotel</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="display">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">酒店在页面显示"售罄"，但实际在酒店详情页有可用房间，原因是什么?</span>
+              <span class="en">A hotel shows "sold out" on the campaign page, but the hotel detail page has available rooms — why?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 常见原因</span><span class="en">⚠️ Common causes</span></span>
+            <ul>
+              <li><span class="zh">活动价格限制:酒店有可用房间，但价格不满足活动价格要求(如活动价 &gt; 房间实际价)</span><span class="en">Campaign price gate: rooms exist but their actual price doesn't meet the campaign rule (e.g. campaign price &gt; actual)</span></li>
+              <li><span class="zh">Flash Sale 时间还未开始:秒杀前15分钟内展示售罄属正常</span><span class="en">Flash Sale hasn't started: "sold out" in the 15 min before start is expected</span></li>
+              <li><span class="zh">RP(Rate Plan)有 masking rule:限制了在活动中的展示</span><span class="en">An RP (Rate Plan) has a masking rule blocking campaign display</span></li>
+              <li><span class="zh">活动日期范围内无价格或库存</span><span class="en">No price or inventory in the campaign's date range</span></li>
+            </ul>
+            <p style="margin-top:8px">
+              <span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong>，提供酒店 ID 和活动页链接。</span>
+              <span class="en">Send hotel ID and campaign-page link to <strong>@Tian Bu</strong> or <strong>@Junfeng Zhang</strong>.</span>
+            </p>
+            <div><span class="tag tag-bug"><span class="zh">售罄</span><span class="en">Sold out</span></span><span class="tag tag-howto">Hotel</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="display">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">ANT 产品没有配置某城市，但页面上仍然展示了该城市，是什么原因?</span>
+              <span class="en">An ANT product wasn't configured for a city, yet the page still shows that city — why?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 常见原因</span><span class="en">⚠️ Common causes</span></span>
+            <ul>
+              <li><span class="zh">城市组件可能存在缓存，或 Pool 配置中仍有该城市数据未清除</span><span class="en">The city component may be cached, or the Pool still has stale data for that city</span></li>
+              <li><span class="zh">联系 <strong>@Wenlu Gan (甘雯露)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong> 排查</span><span class="en">Ask <strong>@Wenlu Gan</strong> or <strong>@Junfeng Zhang</strong> to investigate</span></li>
+              <li><span class="zh">提供页面链接和具体展示异常的城市</span><span class="en">Provide the page link and the misbehaving city</span></li>
+            </ul>
+            <div><span class="tag tag-bug">ANT</span><span class="tag tag-bug"><span class="zh">展示异常</span><span class="en">Display anomaly</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="display">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">活动页面酒店的国家/地区顺序与 Campaign 2.0 中设置的顺序不一致，如何修正?</span>
+              <span class="en">The country/region order of hotels on the campaign page doesn't match the order set in Campaign 2.0 — how to fix?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <ul>
+              <li><span class="zh">检查 Campaign 2.0 Selection Pool 中的 "group" 和 "sort" 设置</span><span class="en">Check the "group" and "sort" settings of the Campaign 2.0 Selection Pool</span></li>
+              <li><span class="zh">确认 Foxpage 中组件的展示排序配置是否与 2.0 设置一致</span><span class="en">Confirm the Foxpage component's display ordering matches the 2.0 settings</span></li>
+              <li><span class="zh">如果前后台均正确但仍不一致，联系 <strong>@Tian Bu (卜天)</strong> 排查</span><span class="en">If both sides look right but the order still differs, escalate to <strong>@Tian Bu</strong></span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">展示异常</span><span class="en">Display anomaly</span></span><span class="tag tag-howto">Hotel</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Mechanism -->
+      <div class="category" data-cat="mechanism" id="mechanism">
+        <div class="category-header">
+          <div class="category-icon" style="background:#fff1f2;">⚙️</div>
+          <h2><span class="zh">Mechanism &amp; Marketing Application</span><span class="en">Mechanism &amp; Marketing Application</span></h2>
+          <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="mechanism">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Marketing Application 编辑时报错 "Duplicate key com.ctrip.ibu.campaign.nexus.entity.CampaignApplicationCouponPlay@..."，如何解决?</span>
+              <span class="en">Editing a Marketing Application throws "Duplicate key com.ctrip.ibu.campaign.nexus.entity.CampaignApplicationCouponPlay@..." — how to resolve?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">该报错(INTERFACE: editApplication)是因为添加了重复的 Coupon Play ID。</span>
+              <span class="en">This error (INTERFACE: editApplication) means a duplicate Coupon Play ID was added.</span>
+            </p>
+            <ul>
+              <li><span class="zh">检查当前 Marketing Application 中是否已经添加了相同的 Play ID</span><span class="en">Check whether the same Play ID is already in the Marketing Application</span></li>
+              <li><span class="zh">系统不允许同一个 Play ID 添加多次</span><span class="en">The system doesn't allow the same Play ID multiple times</span></li>
+              <li><span class="zh">如需要配置多个不同的 Play，确保每个 Play ID 唯一</span><span class="en">For multiple plays, make every Play ID unique</span></li>
+              <li><span class="zh">如仍有问题，联系 <strong>@Tian Bu (卜天)</strong> 提供完整报错信息</span><span class="en">Still stuck? Send the full error to <strong>@Tian Bu</strong></span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">MKT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="mechanism">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Marketing Application 中无法添加多个 Play ID，是系统限制还是操作问题?</span>
+              <span class="en">Can't add multiple Play IDs to a Marketing Application — system limit or operator error?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 确认方式</span><span class="en">⚠️ How to verify</span></span>
+            <ul>
+              <li><span class="zh">确认每次只添加一个 Play ID，然后保存，再添加下一个</span><span class="en">Add one Play ID at a time, save, then add the next</span></li>
+              <li><span class="zh">如果确实无法添加多个，联系 <strong>@Tian Bu (卜天)</strong> 确认当前系统是否支持多 Play ID</span><span class="en">If multi-add still fails, ask <strong>@Tian Bu</strong> whether the current system supports multiple Play IDs</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 部分 Marketing Application 场景确实有 Play ID 数量限制。</span>
+              <span class="en">📌 Some Marketing Application scenarios do cap the number of Play IDs.</span>
+            </div>
+            <div><span class="tag tag-howto">MKT</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="mechanism">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Mechanism 的 confirmation/subsidies 界面，能否一键通过所有产品?</span>
+              <span class="en">On the Mechanism confirmation/subsidies screen, is there a one-click "approve all" for products?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 当前状态</span><span class="en">⚠️ Current status</span></span>
+            <p>
+              <span class="zh">目前 2.0 系统暂不支持批量一键通过 Confirmation/Subsidies，需逐一审核。</span>
+              <span class="en">2.0 doesn't currently support bulk "approve all" for Confirmation/Subsidies — review one-by-one.</span>
+            </p>
+            <ul>
+              <li><span class="zh">如业务上有批量操作需求，可向 <strong>@Tian Bu (卜天)</strong> 提出功能需求</span><span class="en">If you need bulk ops, submit a feature request to <strong>@Tian Bu</strong></span></li>
+            </ul>
+            <div><span class="tag tag-howto">Mechanism</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="mechanism">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">修改活动标题时报错 "exception when creating lark message"(updateMainCampaign)，什么原因?</span>
+              <span class="en">Updating a campaign title throws "exception when creating lark message" (updateMainCampaign) — what causes this?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">该错误是系统在更新活动时尝试发送飞书通知消息失败，属于后台消息推送异常。</span>
+              <span class="en">The system tried to send a Lark notification during the update and failed — a backend push exception.</span>
+            </p>
+            <ul>
+              <li><span class="zh">此类错误通常不影响实际数据更新，可尝试再操作一次</span><span class="en">It usually doesn't block the data update — try again</span></li>
+              <li><span class="zh">若多次失败，联系 <strong>@Tian Bu (卜天)</strong> 提供 MESSAGE ID 排查</span><span class="en">If repeated failures, send the MESSAGE ID to <strong>@Tian Bu</strong></span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">系统异常</span><span class="en">System anomaly</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. System -->
+      <div class="category" data-cat="system" id="system">
+        <div class="category-header">
+          <div class="category-icon" style="background:#f0f9ff;">🔧</div>
+          <h2><span class="zh">系统配置 &amp; 通用问题</span><span class="en">System Config &amp; General Issues</span></h2>
+          <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="system">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">某些字段(如折扣相关字段)无法手动修改，是根据立减设定自动填入的，能人工更改吗?</span>
+              <span class="en">Some fields (e.g. discount-related) can't be manually edited and are auto-filled from Direct Discount — can they be overridden?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 系统设计</span><span class="en">⚠️ System design</span></span>
+            <p>
+              <span class="zh">部分字段在 Campaign 2.0 中是自动计算字段，不支持手动修改。</span>
+              <span class="en">Some fields in Campaign 2.0 are auto-calculated and don't accept manual edits.</span>
+            </p>
+            <ul>
+              <li><span class="zh">根据立减(Direct Discount)自动带入的字段属于联动计算结果，系统设计上为只读</span><span class="en">Fields auto-derived from Direct Discount are computed downstream — designed to be read-only</span></li>
+              <li><span class="zh">若确实需要修改源头值，应修改对应的立减配置</span><span class="en">If you need to change the source value, edit the upstream Direct Discount config</span></li>
+              <li><span class="zh">如有特殊需求，联系 <strong>@Tian Bu (卜天)</strong> 确认是否有后台修改途径</span><span class="en">For special cases, ask <strong>@Tian Bu</strong> if a backend override exists</span></li>
+            </ul>
+            <div><span class="tag tag-howto"><span class="zh">配置</span><span class="en">Config</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="system">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">活动在 Campaign 1.0 中已配好 Basic Info 和 Mechanism，有必要迁移到 2.0 吗?</span>
+              <span class="en">A campaign already has Basic Info and Mechanism configured in Campaign 1.0 — is migrating to 2.0 worth it?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 参考建议</span><span class="en">✅ Recommendation</span></span>
+            <ul>
+              <li><span class="zh">如果活动即将上线(如5.4上线)，且1.0配置已完整，<strong>没有必要强制迁移</strong></span><span class="en">If the campaign launches soon (e.g. 5/4) and 1.0 is fully configured, <strong>don't force-migrate</strong></span></li>
+              <li><span class="zh">Campaign 2.0 提供更多自动化功能(如自动 Sourcing、Grading、QA)，适合新建活动使用</span><span class="en">Campaign 2.0 offers more automation (auto Sourcing, Grading, QA) — best suited for new campaigns</span></li>
+              <li><span class="zh">已在1.0配好的活动维持原配置即可，避免临上线前迁移引发风险</span><span class="en">Keep existing 1.0 campaigns on 1.0 to avoid pre-launch migration risk</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 建议新活动从 2.0 开始配置，现有1.0活动不需要强制迁移。</span>
+              <span class="en">📌 Recommendation: start new campaigns on 2.0; don't forcibly migrate live 1.0 campaigns.</span>
+            </div>
+            <div><span class="tag tag-howto"><span class="zh">迁移</span><span class="en">Migration</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="system">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">页面或系统中显示 "China"，能否改成 "内地" 或 "Mainland"?</span>
+              <span class="en">The page/system shows "China" — can we change it to "Mainland"?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 功能请求</span><span class="en">⚠️ Feature request</span></span>
+            <p>
+              <span class="zh">这是产品侧的文案配置问题，不是运营可以自行修改的。</span>
+              <span class="en">This is product-side copy, not something operations can change directly.</span>
+            </p>
+            <ul>
+              <li><span class="zh">可以在群内提出需求，联系 <strong>@Tian Bu (卜天)</strong> 或产品团队评估</span><span class="en">Raise the request in the group; <strong>@Tian Bu</strong> or product will evaluate</span></li>
+              <li><span class="zh">如果是 Foxpage 组件文案，可以联系 <strong>@Darong Xiao (肖达荣)</strong> 或 <strong>@Minnan Wang (王敏楠)</strong> 修改</span><span class="en">If it's Foxpage component copy, contact <strong>@Darong Xiao</strong> or <strong>@Minnan Wang</strong></span></li>
+            </ul>
+            <div><span class="tag tag-howto"><span class="zh">文案</span><span class="en">Copy</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="system">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Campaign 2.0 中报错 "cannot found campaign activity by subSourcingId:0"，是什么原因?</span>
+              <span class="en">Getting "cannot found campaign activity by subSourcingId:0" in Campaign 2.0 — what's wrong?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">该报错(配置酒店秒杀时出现，PARAM_ERROR)说明秒杀配置中的 subSourcingId 为0，即未找到关联的 Sourcing 记录。</span>
+              <span class="en">This error (seen during hotel flash-sale config, PARAM_ERROR) means subSourcingId is 0 — no linked Sourcing record was found.</span>
+            </p>
+            <ul>
+              <li><span class="zh">确认秒杀活动对应的 Sourcing 是否已经正确创建并关联</span><span class="en">Verify the Sourcing for the flash sale is created and linked</span></li>
+              <li><span class="zh">检查 Campaign 的 sub sourcing 配置是否有遗漏</span><span class="en">Check whether the Campaign's sub-sourcing config is missing anything</span></li>
+              <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong>，提供报错截图和 Campaign 链接</span><span class="en">Send the error screenshot and Campaign link to <strong>@Tian Bu</strong></span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">报错</span><span class="en">Error</span></span><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Foxpage -->
+      <div class="category" data-cat="foxpage" id="foxpage">
+        <div class="category-header">
+          <div class="category-icon" style="background:#fef2f2;">📄</div>
+          <h2><span class="zh">Foxpage 页面问题(近30天)</span><span class="en">Foxpage Issues (last 30 days)</span></h2>
+          <span class="badge"><span class="zh">15 个问题</span><span class="en">15 questions</span></span>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">线上组件发布后，引用组件的页面多久同步到最新版本?堡垒环境呢?</span>
+              <span class="en">After publishing a component to production, how long until pages referencing it sync to the latest version? What about the Baolei (fortress) environment?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 回答</span><span class="en">✅ Answer</span></span>
+            <ul>
+              <li><span class="zh">线上页面大概最慢 <strong>40 秒</strong>同步到最新版本，不同机器先后顺序不同</span><span class="en">Production pages sync to the latest within about <strong>40 seconds</strong> at the slowest; order varies across machines</span></li>
+              <li><span class="zh">堡垒环境同样会同步到最新发布版本(除非你专门发布了堡垒版本)</span><span class="en">Baolei (fortress) syncs to the latest production release too — unless you explicitly published a Baolei-specific version</span></li>
+              <li><span class="zh">对线上已存在组件做大改动想验证回归时，可<strong>发布堡垒版本</strong>，再用堡垒插件或 baolei 平台访问页面 URL 测试</span><span class="en">For regression-testing a major change to a live component, <strong>publish a Baolei version</strong>, then access the page URL via the Baolei plugin or Baolei platform</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 不想影响老页面:发堡垒版本 + 在堡垒环境搭建测试页面访问。</span>
+              <span class="en">💡 To avoid affecting existing pages: publish a Baolei version and stage a test page in the Baolei environment.</span>
+            </div>
+            <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto"><span class="zh">发布</span><span class="en">Publish</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">hotel-general 日期选择器只能选未来 60 天，更远的日期选不了，怎么办?</span>
+              <span class="en">hotel-general date picker only allows up to 60 days ahead — how do I pick further-out dates?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 现状</span><span class="en">⚠️ Current state</span></span>
+            <p>
+              <span class="zh">Campaign 2.0 中，hotel-general 组件的日历筛选器默认可选范围是<strong>当前日期 + 60 天</strong>，1.0 上能配置的最大日期范围字段在 2.0 已被去掉。</span>
+              <span class="en">In Campaign 2.0, the hotel-general calendar filter defaults to <strong>today + 60 days</strong>. The "max date range" field that existed in 1.0 has been removed in 2.0.</span>
+            </p>
+            <ul>
+              <li><span class="zh">如需扩展(例如 t+90)，联系 <strong>@Candice Wu (邬欣颖)</strong> 或 <strong>@Darong Xiao (肖达荣)</strong> 评估</span><span class="en">Need a longer window (e.g. t+90)? Ask <strong>@Candice Wu</strong> or <strong>@Darong Xiao</strong> to evaluate</span></li>
+              <li><span class="zh">这是前端展示限制，但会影响后续下单流程的时间匹配</span><span class="en">This is a frontend display limit, but it cascades into time-matching downstream in the booking flow</span></li>
+            </ul>
+            <div><span class="tag tag-bug"><span class="zh">限制</span><span class="en">Limit</span></span><span class="tag tag-howto"><span class="zh">酒店</span><span class="en">Hotel</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">tabs-navigation-bar 怎么实现点击 tab 跳转到页面指定楼层(锚点)?</span>
+              <span class="en">How do I make tabs-navigation-bar jump to a specific section (anchor) of the page on click?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">把组件升级为 <span class="code">@ctrip/cloud-component-sales-tabs-navigation-bar-v2</span>，它支持通过锚点跳转:</span>
+              <span class="en">Upgrade to <span class="code">@ctrip/cloud-component-sales-tabs-navigation-bar-v2</span>, which supports anchor jumps:</span>
+            </p>
+            <ul>
+              <li><span class="zh">URL hash:<span class="code">https://xxx.html#hotel</span></span><span class="en">URL hash: <span class="code">https://xxx.html#hotel</span></span></li>
+              <li><span class="zh">URL 参数:<span class="code">https://xxx.html?anchor=hotel</span></span><span class="en">URL param: <span class="code">https://xxx.html?anchor=hotel</span></span></li>
+              <li><span class="zh">锚点名取自 tab 名(在组件配置中可调)</span><span class="en">The anchor name comes from the tab name (configurable in the component)</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 旧版 tabs-navigation-bar 不支持锚点;link-wrapper 嵌套 headline 也不支持 # 锚点(只接受 URL 输入)。</span>
+              <span class="en">📌 The old tabs-navigation-bar doesn't support anchors; link-wrapper wrapping a headline also doesn't accept # anchors (URL input only).</span>
+            </div>
+            <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto"><span class="zh">导航</span><span class="en">Navigation</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">把旧页面 copy 到新页面失败、剪贴板粘贴为空，怎么办?</span>
+              <span class="en">Copying an old page to a new page fails — clipboard paste comes back empty. What now?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">Foxpage 跨页面复制要求两个页面 URL 都使用 <strong>https</strong>。</span>
+              <span class="en">Foxpage cross-page copy requires both pages to be served over <strong>https</strong>.</span>
+            </p>
+            <ul>
+              <li><span class="zh">检查浏览器地址栏，把 <span class="code">http://admin.foxpage...</span> 手动改为 <span class="code">https://admin.foxpage...</span></span><span class="en">Check the address bar — manually change <span class="code">http://admin.foxpage...</span> to <span class="code">https://admin.foxpage...</span></span></li>
+              <li><span class="zh">新旧页面都用 https 后再 copy/paste</span><span class="en">Use https on both pages, then copy/paste</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 同样适用于 "Copy to Clipboard":源页和目标页必须都是 https。</span>
+              <span class="en">💡 Same applies to "Copy to Clipboard": source and target must both be https.</span>
+            </div>
+            <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-bug"><span class="zh">复制</span><span class="en">Copy</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">优惠券组件在小语种站点(如 RU)单词太长导致溢出/换行遮挡，怎么处理?</span>
+              <span class="en">On low-resource locales (e.g. RU), long words in the coupon component overflow/wrap and clip — how to handle?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 临时处理</span><span class="en">⚠️ Quick fix</span></span>
+            <ul>
+              <li><span class="zh">常规字号是 20px，溢出时可临时缩到 <strong>14px</strong>(与商卡价格的最小字号规则保持一致)</span><span class="en">Default size is 20px; on overflow, temporarily reduce to <strong>14px</strong> (matches the merchant card price min-size rule)</span></li>
+              <li><span class="zh">调整时需让该用户先<strong>退出页面编辑</strong>(直接关浏览器要等几分钟才识别断开)</span><span class="en">Have the editing user <strong>exit page edit mode</strong> first (just closing the browser takes a few minutes to register as disconnected)</span></li>
+              <li><span class="zh">联系 <strong>@Darong Xiao (肖达荣)</strong> 临时处理;产品侧后续会规划单词溢出场景的优化</span><span class="en">Ping <strong>@Darong Xiao</strong> for the temp fix; product is planning a long-term overflow improvement</span></li>
+              <li><span class="zh">也可与运营协商精简券名</span><span class="en">Or negotiate a shorter coupon name with operations</span></li>
+            </ul>
+            <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-bug"><span class="zh">布局</span><span class="en">Layout</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">EDM 中 countdown 倒计时背景色改不了 / 倒计时单位文案要改成缩写(如 "j" 代替 "jours")</span>
+              <span class="en">In EDM, the countdown background color isn't editable / unit copy needs an abbreviation (e.g. "j" instead of "jours")</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 说明</span><span class="en">✅ Explanation</span></span>
+            <ul>
+              <li><span class="zh">EDM 中的倒计时本质是<strong>服务端动态生成的图片</strong>，不支持暗黑模式，背景色无法修改</span><span class="en">EDM countdowns are <strong>server-side dynamically generated images</strong> — no dark mode, background color is not editable</span></li>
+              <li><span class="zh">单位文案由 Shark 提供，APPID <span class="code">55555</span>，shark key <span class="code">countdown_days</span></span><span class="en">Unit copy comes from Shark — APPID <span class="code">55555</span>, shark key <span class="code">countdown_days</span></span></li>
+              <li><span class="zh">修改文案联系 <strong>@Candice Wu (邬欣颖)</strong></span><span class="en">For copy edits, contact <strong>@Candice Wu</strong></span></li>
+            </ul>
+            <div><span class="tag tag-howto">EDM</span><span class="tag tag-howto"><span class="zh">文案</span><span class="en">Copy</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">机票组件设置了"卡片限制 3 张"，但页面仍然平铺所有货品，为什么?</span>
+              <span class="en">The flight component is set to "limit 3 cards", but all products still tile on the page — why?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 原因 &amp; 解决</span><span class="en">⚠️ Cause &amp; fix</span></span>
+            <p>
+              <span class="zh">"设置一页展示卡片个数"这个属性<strong>历史上只在 1.0 模式下生效</strong>。如果你填的是 <strong>poolId</strong>(即 2.0 货源)，属性会被忽略。</span>
+              <span class="en">The "cards per page" attribute <strong>historically only worked in 1.0 mode</strong>. If you've set a <strong>poolId</strong> (i.e. 2.0 source), the attribute is ignored.</span>
+            </p>
+            <ul>
+              <li><span class="zh">2026-04 已支持:2.0 模式下也支持卡片个数限制(已发布)</span><span class="en">As of 2026-04, the card limit is also supported in 2.0 mode (released)</span></li>
+              <li><span class="zh">如仍有问题，联系 <strong>@Darong Xiao (肖达荣)</strong> + <strong>@Minnan Wang (王敏楠)</strong></span><span class="en">If still broken, contact <strong>@Darong Xiao</strong> + <strong>@Minnan Wang</strong></span></li>
+            </ul>
+            <div><span class="tag tag-howto"><span class="zh">机票</span><span class="en">Flights</span></span><span class="tag tag-config">2.0</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">已发布的版本误操作覆盖了，能回退吗?</span>
+              <span class="en">A published version was accidentally overwritten — can it be rolled back?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 解决方案</span><span class="en">✅ Solution</span></span>
+            <p>
+              <span class="zh">支持<strong>整版本回退</strong>，但只能整体回退，不能只挑某个组件。</span>
+              <span class="en">A <strong>full-version rollback</strong> is supported, but only as a whole — you can't roll back a single component.</span>
+            </p>
+            <ul>
+              <li><span class="zh">建议做法:保留当前版本，去历史版本里<strong>把所需组件复制出来</strong>，粘贴到新版本上发布</span><span class="en">Recommended: keep the current version, then <strong>copy the needed components</strong> from the historical version and paste them into a new version to publish</span></li>
+              <li><span class="zh">需要彻底回退到 v66 等历史版本:联系 <strong>@Darong Xiao (肖达荣)</strong>，注意之后再编辑的版本不能基于历史版本继续</span><span class="en">For a hard rollback to v66 etc.: contact <strong>@Darong Xiao</strong>; subsequent edits can't continue from the historical version</span></li>
+              <li><span class="zh">foxpage 草稿与 live 不一致时，可请 <strong>@Yihui Deng (邓怡辉)</strong> 删除当前草稿</span><span class="en">If the Foxpage draft drifts from live, ask <strong>@Yihui Deng</strong> to delete the current draft</span></li>
+            </ul>
+            <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto"><span class="zh">发布</span><span class="en">Publish</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">设置 condition 时间后，重新打开看到的是 GMT+8，业务需要的是本地时区，怎么处理?</span>
+              <span class="en">After setting a condition time, reopening shows GMT+8 but the business wants local time — how to handle?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 系统设计</span><span class="en">⚠️ System design</span></span>
+            <ul>
+              <li><span class="zh">Condition 时间会按<strong>当前 Campaign 的时区</strong>展示(不是浏览器本地时区)</span><span class="en">Condition times are displayed in the <strong>Campaign's configured time zone</strong>, not the browser's local zone</span></li>
+              <li><span class="zh">实际保存的时间是你点击 Save 那一刻的设定值</span><span class="en">The value actually persisted is whatever you set at the moment of Save</span></li>
+              <li><span class="zh">如果显示与预期不一致，联系 <strong>@Tian Bu (卜天)</strong> 排查 Campaign 2.0 时区配置</span><span class="en">If the display doesn't match expectations, ask <strong>@Tian Bu</strong> to check the Campaign 2.0 time-zone config</span></li>
+            </ul>
+            <div><span class="tag tag-config"><span class="zh">时区</span><span class="en">Timezone</span></span><span class="tag tag-howto">condition</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">Foxpage 模板列表突然找不到自己创建的页面，是 bug 吗?</span>
+              <span class="en">A page I just created has disappeared from the Foxpage template list — is this a bug?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 原因</span><span class="en">✅ Reason</span></span>
+            <p>
+              <span class="zh">"样板"列表里只显示<strong>已发布</strong>的页面。当天创建但未发布的页面会被自动过滤掉。</span>
+              <span class="en">The "template" list only shows <strong>published</strong> pages. Pages created today but not yet published are filtered out.</span>
+            </p>
+            <ul>
+              <li><span class="zh">试着发布一个页面后，模板列表会重新出现</span><span class="en">Publish the page and it'll reappear in the template list</span></li>
+              <li><span class="zh">底部如有"加载更多"按钮也可点击试试</span><span class="en">Also try the "Load more" button at the bottom if present</span></li>
+            </ul>
+            <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto"><span class="zh">模板</span><span class="en">Template</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">想给 top navigation 的某个 tab 单独配置展示条件(如只对新客显示)，可以吗?</span>
+              <span class="en">Can I set a display condition (e.g. new users only) on a single tab inside top navigation?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 当前限制</span><span class="en">⚠️ Current limit</span></span>
+            <p>
+              <span class="zh">原生不支持给单个 tab 设置 condition。<strong>变通方法</strong>:</span>
+              <span class="en">Per-tab conditions aren't natively supported. <strong>Workaround</strong>:</span>
+            </p>
+            <ul>
+              <li><span class="zh">复制一份导航栏组件</span><span class="en">Duplicate the navigation bar component</span></li>
+              <li><span class="zh">原导航栏只对老用户显示，复制版只对新用户显示，并各自删掉不该出现的 tab</span><span class="en">Show the original to existing users, the copy to new users — each with the unwanted tabs removed</span></li>
+              <li><span class="zh">整体导航栏维度上分别设置 condition</span><span class="en">Apply conditions at the whole-nav-bar level on each copy</span></li>
+            </ul>
+            <div class="tip">
+              <span class="zh">💡 经验证可用，会让 Foxpage 编辑页变长，但效果符合预期。</span>
+              <span class="en">💡 Verified working — makes the Foxpage editor longer but produces the expected result.</span>
+            </div>
+            <div><span class="tag tag-howto"><span class="zh">导航</span><span class="en">Navigation</span></span><span class="tag tag-howto">condition</span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">app-only / online-only / app+online 条件混用时，模块在 preview 里展示不出来</span>
+              <span class="en">When app-only / online-only / app+online conditions are mixed, the module doesn't show in preview</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 排查思路</span><span class="en">✅ Troubleshooting</span></span>
+            <ul>
+              <li><span class="zh">检查 condition 与组件属性的 binding 是否完整("有个属性没有绑定好"是常见原因)</span><span class="en">Verify the condition-to-attribute binding is complete ("an attribute wasn't bound properly" is a common cause)</span></li>
+              <li><span class="zh">确认 preview 链接的 locale / 设备类型是否匹配该 condition</span><span class="en">Confirm the preview link's locale / device type matches the condition</span></li>
+              <li><span class="zh">同样的 condition 复制到其他页面后<strong>不会自动同步</strong>:condition 通过组件 ID 绑定，复制后 ID 重新生成，需手动重新设置 link</span><span class="en">Conditions copied to another page <strong>don't auto-sync</strong> — the binding is by component ID and new IDs are generated on copy; relink manually</span></li>
+              <li><span class="zh">仍异常联系 <strong>@Darong Xiao (肖达荣)</strong> / <strong>@Linlong Li (李林龙)</strong></span><span class="en">Still broken? Contact <strong>@Darong Xiao</strong> / <strong>@Linlong Li</strong></span></li>
+            </ul>
+            <div><span class="tag tag-howto">condition</span><span class="tag tag-bug"><span class="zh">展示</span><span class="en">Display</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">flash-sale-v3 / hotel / tnt-products 整个组件没有渲染或没有发请求，怎么排查?</span>
+              <span class="en">flash-sale-v3 / hotel / tnt-products component isn't rendering or isn't firing requests — how to debug?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">✅ 排查 checklist</span><span class="en">✅ Debug checklist</span></span>
+            <ul>
+              <li><span class="zh"><strong>检查 slot 是否真的存在</strong>(getPartitionInfo 返回空数据 = 没有该 slot)</span><span class="en"><strong>Verify the slot actually exists</strong> (getPartitionInfo returning empty = no such slot)</span></li>
+              <li><span class="zh"><strong>检查分组类型</strong>:slot 配置 CITY 分组但 POI/酒店没有城市信息时不会进入，改为 <span class="code">No Group</span></span><span class="en"><strong>Check the grouping type</strong>: if the slot uses CITY grouping but a POI/hotel has no city info, it's excluded — switch to <span class="code">No Group</span></span></li>
+              <li><span class="zh">国内酒店和国外酒店<strong>不能放同一分组</strong>，要按国家分组</span><span class="en">Domestic and international hotels <strong>can't share one group</strong> — split by country</span></li>
+              <li><span class="zh">货品<strong>没有价格</strong>会被前端过滤(ANT 货品要在 ANT 后台配价)</span><span class="en">Products <strong>without a price</strong> get frontend-filtered (ANT products must have prices configured in the ANT backend)</span></li>
+              <li><span class="zh">货品<strong>状态码 7</strong>(不在售也不售罄)会自动隐藏按钮</span><span class="en">Products with <strong>status code 7</strong> (neither on-sale nor sold-out) auto-hide their button</span></li>
+              <li><span class="zh">组件可能被嵌套在某个 tab 下，前端实际上有发请求</span><span class="en">The component may be nested under a tab — frontend may actually be firing the request</span></li>
+              <li><span class="zh">新建货品有数据延迟，等几分钟再看</span><span class="en">Newly-created products have data lag — wait a few minutes</span></li>
+            </ul>
+            <div><span class="tag tag-howto"><span class="zh">排查</span><span class="en">Debug</span></span><span class="tag tag-howto"><span class="zh">货品</span><span class="en">Product</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">多 locale 共享预算的多币种优惠券，foxpage 上某些 locale 显示"已失效/Fully issued"</span>
+              <span class="en">A multi-currency coupon with shared budget across locales shows "Fully issued / expired" on some locales in Foxpage</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 系统限制</span><span class="en">⚠️ System limit</span></span>
+            <p>
+              <span class="zh">Foxpage 优惠券组件<strong>暂不支持多币种券共享预算</strong>:因历史原因不会换算币种，直接用面值绝对值与库存余额绝对值比较，导致 VN/ID 等大面值货币被算成"无库存"。</span>
+              <span class="en">The Foxpage coupon component <strong>doesn't yet support shared budgets across currencies</strong>. For historical reasons it doesn't convert currency — it compares absolute face value against absolute remaining budget, so large-denomination currencies (VN/ID, etc.) get tagged "out of stock".</span>
+            </p>
+            <p>
+              <span class="zh"><strong>两种解决方案:</strong></span>
+              <span class="en"><strong>Two workarounds:</strong></span>
+            </p>
+            <ul>
+              <li><span class="zh">方案 1:按 locale 拆分独立优惠券(每个 locale 自己的库存)</span><span class="en">Option 1: split into per-locale coupons, each with its own budget</span></li>
+              <li><span class="zh">方案 2:把"金额库存"换算成"次数库存"，使用次数库存作为总库存</span><span class="en">Option 2: convert "amount budget" into "count budget" and use count as the total inventory</span></li>
+              <li><span class="zh">同一 link 不同用户看到状态不同时，让 <strong>@Qingfeng Wang (王庆丰)</strong> 按 UID 查访问记录</span><span class="en">If different users see different states for the same link, ask <strong>@Qingfeng Wang</strong> to look up access records by UID</span></li>
+            </ul>
+            <div class="note">
+              <span class="zh">📌 不要在金额做库存的优惠券上配置多币种。</span>
+              <span class="en">📌 Don't configure multi-currency on coupons whose budget is amount-based.</span>
+            </div>
+            <div><span class="tag tag-howto"><span class="zh">优惠券</span><span class="en">Coupon</span></span><span class="tag tag-bug"><span class="zh">库存</span><span class="en">Budget</span></span></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-cat="foxpage">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+            <div class="question-text">
+              <span class="zh">某些活动机制(如 Share 任务、Lucky Draw)找不到了，是不是被下掉了?</span>
+              <span class="en">Some campaign mechanisms (Share tasks, Lucky Draw) are gone — were they sunset?</span>
+            </div>
+            <div class="arrow">▼</div>
+          </div>
+          <div class="faq-a">
+            <span class="answer-label"><span class="zh">⚠️ 已下线</span><span class="en">⚠️ Sunset</span></span>
+            <ul>
+              <li><span class="zh"><strong>Share 任务</strong>:已下线 2-3 年以上，分享相关组件全部移除(Share 完成定义本来就只是"点击按钮"，无法验证真实分享)</span><span class="en"><strong>Share tasks</strong>: sunset 2-3+ years ago; all share components are removed (Share completion was only ever defined as "button click" — couldn't verify a real share)</span></li>
+              <li><span class="zh"><strong>Lucky Draw 抽奖</strong>:老旧机制，已不再使用;如必须做抽奖，建议用<strong>任务机制</strong>收集符合条件的用户清单，线下抽奖后人工发奖</span><span class="en"><strong>Lucky Draw</strong>: legacy mechanism, no longer used; if you really need a draw, use the <strong>task mechanism</strong> to gather an eligible user list, then draw and reward offline</span></li>
+              <li><span class="zh"><strong>Custom group / 手动分组(机票)</strong>:2.0 不支持，未来也不计划支持，统一走 auto group;要手动分组只能用 Foxpage tab 实现</span><span class="en"><strong>Custom group / manual grouping (flights)</strong>: not supported in 2.0, no plans to add it — auto group only; manual grouping has to be done via Foxpage tabs</span></li>
+              <li><span class="zh"><strong>新客礼包 / 学生礼包</strong>:新客礼包是单独实现的组件;学生礼包不支持，需重新开发(IBU 活动场景可向 PM 提需)</span><span class="en"><strong>New-user gift / student gift</strong>: new-user gift is a standalone component; student gift isn't supported and would need to be built — for IBU campaign use cases, file a request with PM</span></li>
+            </ul>
+            <div><span class="tag tag-howto"><span class="zh">机制</span><span class="en">Mechanism</span></span><span class="tag tag-howto"><span class="zh">下线</span><span class="en">Sunset</span></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /container -->
 </div>
 
 <!-- ===== Records Tab ===== -->
 <div class="tab-panel" id="tab-rec">
   <div class="rec-sticky">
+    <div class="rec-banner">
+      <span class="zh">ℹ️ 以下为群内真实历史对话记录，保留原始语言（中英混合）以确保信息真实性，不进行翻译。</span>
+      <span class="en">ℹ️ The records below are verbatim group-chat history. Original language (mixed CN/EN) is preserved for fidelity — no translation applied.</span>
+    </div>
     <div class="rec-toolbar">
-      <input type="text" id="recSearch" placeholder="搜索关键词：如 权限、QA、售罄、booking period..." oninput="doRecSearch()" />
-      <button class="rec-btn" onclick="expandAll()">展开全部</button>
-      <button class="rec-btn" onclick="collapseAll()">折叠全部</button>
-      <span class="rec-count" id="recCount">共 78 条</span>
+      <input type="text" id="recSearch" oninput="doRecSearch()"
+        data-ph-zh="搜索关键词：如 权限、QA、售罄、booking period..."
+        data-ph-en="Search keywords: permission, QA, sold-out, booking period..." />
+      <button class="rec-btn" onclick="expandAll()"><span class="zh">展开全部</span><span class="en">Expand all</span></button>
+      <button class="rec-btn" onclick="collapseAll()"><span class="zh">折叠全部</span><span class="en">Collapse all</span></button>
+      <span class="rec-count" id="recCount"><span class="zh">共 78 条</span><span class="en">78 messages</span></span>
     </div>
     <div class="type-bar">
-      <button class="fb fa" onclick="filterType('all',this)">全部</button><button class="fb" onclick="filterType('🔐 权限问题',this)">🔐 权限问题</button><button class="fb" onclick="filterType('🗂️ Selection Pool',this)">🗂️ Selection Pool</button><button class="fb" onclick="filterType('🖥️ 页面展示',this)">🖥️ 页面展示</button><button class="fb" onclick="filterType('🎫 ANT/日游',this)">🎫 ANT/日游</button><button class="fb" onclick="filterType('⚡ Flash Sale/秒杀',this)">⚡ Flash Sale/秒杀</button><button class="fb" onclick="filterType('🏨 酒店问题',this)">🏨 酒店问题</button><button class="fb" onclick="filterType('🔧 系统错误',this)">🔧 系统错误</button><button class="fb" onclick="filterType('⚙️ Mechanism/MKT',this)">⚙️ Mechanism/MKT</button><button class="fb" onclick="filterType('📦 招商/货单',this)">📦 招商/货单</button><button class="fb" onclick="filterType('✅ QA 审核',this)">✅ QA 审核</button><button class="fb" onclick="filterType('✈️ 航班/机票',this)">✈️ 航班/机票</button><button class="fb" onclick="filterType('💬 其他',this)">💬 其他</button>
+      <button class="fb fa" onclick="filterType('all',this)"><span class="zh">全部</span><span class="en">All</span></button><button class="fb" onclick="filterType('🔐 权限问题',this)">🔐 <span class="zh">权限问题</span><span class="en">Permissions</span></button><button class="fb" onclick="filterType('🗂️ Selection Pool',this)">🗂️ Selection Pool</button><button class="fb" onclick="filterType('🖥️ 页面展示',this)">🖥️ <span class="zh">页面展示</span><span class="en">Page Display</span></button><button class="fb" onclick="filterType('🎫 ANT/日游',this)">🎫 <span class="zh">ANT/日游</span><span class="en">ANT/Day-tours</span></button><button class="fb" onclick="filterType('⚡ Flash Sale/秒杀',this)">⚡ Flash Sale</button><button class="fb" onclick="filterType('🏨 酒店问题',this)">🏨 <span class="zh">酒店问题</span><span class="en">Hotel Issues</span></button><button class="fb" onclick="filterType('🔧 系统错误',this)">🔧 <span class="zh">系统错误</span><span class="en">System Errors</span></button><button class="fb" onclick="filterType('⚙️ Mechanism/MKT',this)">⚙️ Mechanism/MKT</button><button class="fb" onclick="filterType('📦 招商/货单',this)">📦 <span class="zh">招商/货单</span><span class="en">Sourcing</span></button><button class="fb" onclick="filterType('✅ QA 审核',this)">✅ <span class="zh">QA 审核</span><span class="en">QA Review</span></button><button class="fb" onclick="filterType('✈️ 航班/机票',this)">✈️ <span class="zh">航班/机票</span><span class="en">Flights</span></button><button class="fb" onclick="filterType('💬 其他',this)">💬 <span class="zh">其他</span><span class="en">Other</span></button>
     </div>
   </div>
+  <div class="rec-wrap" id="recWrap">
   <div class="rec-wrap" id="recWrap">
     <div class="rc" id="r1" data-type="💬 其他"><div class="rc-header"><span class="ri">#1</span><span class="ttype" style="background:#f0f2f5;color:#374151">💬 其他</span></div><div class="msg question">
   <div class="av" style="background:#3b82f6">余</div>
@@ -6415,13 +6690,32 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
   </div>
 </div></div></div>
   </div>
+
+  </div>
 </div>
 
 <!-- Lightbox -->
 <div class="lb" id="lb" onclick="closeLb()"><img id="lbImg" src="" /></div>
 
 <script>
-// ===== Tab =====
+// ===== Language toggle =====
+function setLang(lang) {
+  document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'zh');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.querySelectorAll('input[data-ph-zh]').forEach(input => {
+    input.placeholder = lang === 'en' ? input.dataset.phEn : input.dataset.phZh;
+  });
+  try { localStorage.setItem('faqLang', lang); } catch(e) {}
+}
+(function initLang(){
+  let saved = 'zh';
+  try { saved = localStorage.getItem('faqLang') || 'zh'; } catch(e) {}
+  setLang(saved);
+})();
+
+// ===== Tabs =====
 function switchTab(name, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -6430,101 +6724,73 @@ function switchTab(name, btn) {
 }
 
 // ===== FAQ =====
+function toggle(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
 
-  // Toggle FAQ item
-  function toggle(el) {
-    const item = el.parentElement;
-    const wasOpen = item.classList.contains('open');
-    // Close all
-    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-    // Open this one if it wasn't open
-    if (!wasOpen) item.classList.add('open');
+function filterCat(cat) {
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  document.getElementById('cat-' + cat).classList.add('active');
+  const items = document.querySelectorAll('.faq-item');
+  const categories = document.querySelectorAll('.category');
+  if (cat === 'all') {
+    items.forEach(i => i.style.display = '');
+    categories.forEach(c => c.style.display = '');
+  } else {
+    categories.forEach(c => { c.style.display = c.dataset.cat === cat ? '' : 'none'; });
+    items.forEach(i => i.style.display = '');
   }
+  return false;
+}
 
-  // Filter by category
-  function filterCat(cat) {
-    // Update sidebar active state
+function doFaqSearch(query) {
+  const q = query.trim().toLowerCase();
+  document.querySelectorAll('mark').forEach(m => m.replaceWith(m.textContent));
+  if (!q) {
+    document.querySelectorAll('.faq-item').forEach(i => i.style.display = '');
+    document.querySelectorAll('.category').forEach(c => c.style.display = '');
+    document.getElementById('no-results').style.display = 'none';
     document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-    document.getElementById('cat-' + cat).classList.add('active');
-
-    const items = document.querySelectorAll('.faq-item');
-    const categories = document.querySelectorAll('.category');
-
-    if (cat === 'all') {
-      items.forEach(i => i.style.display = '');
-      categories.forEach(c => c.style.display = '');
+    document.getElementById('cat-all').classList.add('active');
+    return;
+  }
+  let visibleCount = 0;
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    if (text.includes(q)) {
+      item.style.display = '';
+      item.classList.add('open');
+      visibleCount++;
+      highlightText(item, q);
     } else {
-      categories.forEach(c => {
-        if (c.dataset.cat === cat) {
-          c.style.display = '';
-        } else {
-          c.style.display = 'none';
-        }
-      });
-      items.forEach(i => i.style.display = '');
+      item.style.display = 'none';
     }
-    return false;
-  }
+  });
+  document.querySelectorAll('.category').forEach(cat => {
+    const hasVisible = Array.from(cat.querySelectorAll('.faq-item')).some(i => i.style.display !== 'none');
+    cat.style.display = hasVisible ? '' : 'none';
+  });
+  document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
+}
 
-  // Search
-  function doFaqSearch(query) {
-    const q = query.trim().toLowerCase();
-
-    // Remove old highlights
-    document.querySelectorAll('mark').forEach(m => {
-      m.replaceWith(m.textContent);
-    });
-
-    if (!q) {
-      document.querySelectorAll('.faq-item').forEach(i => i.style.display = '');
-      document.querySelectorAll('.category').forEach(c => c.style.display = '');
-      document.getElementById('no-results').style.display = 'none';
-      // Reset sidebar
-      document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-      document.getElementById('cat-all').classList.add('active');
-      return;
+function highlightText(el, query) {
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const idx = node.textContent.toLowerCase().indexOf(query);
+    if (idx >= 0 && node.parentElement.tagName !== 'SCRIPT' && node.parentElement.tagName !== 'STYLE') {
+      const span = document.createElement('span');
+      span.innerHTML = node.textContent.substring(0, idx) +
+        '<mark>' + node.textContent.substring(idx, idx + query.length) + '</mark>' +
+        node.textContent.substring(idx + query.length);
+      node.parentNode.replaceChild(span, node);
     }
-
-    let visibleCount = 0;
-    document.querySelectorAll('.faq-item').forEach(item => {
-      const text = item.textContent.toLowerCase();
-      if (text.includes(q)) {
-        item.style.display = '';
-        item.classList.add('open');
-        visibleCount++;
-        // Highlight matches
-        highlightText(item, q);
-      } else {
-        item.style.display = 'none';
-      }
-    });
-
-    // Show/hide categories based on visible items
-    document.querySelectorAll('.category').forEach(cat => {
-      const visibleItems = cat.querySelectorAll('.faq-item[style=""]').length;
-      const hasVisible = Array.from(cat.querySelectorAll('.faq-item')).some(i => i.style.display !== 'none');
-      cat.style.display = hasVisible ? '' : 'none';
-    });
-
-    document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
-  }
-
-  function highlightText(el, query) {
-    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => {
-      const idx = node.textContent.toLowerCase().indexOf(query);
-      if (idx >= 0 && node.parentElement.tagName !== 'SCRIPT' && node.parentElement.tagName !== 'STYLE') {
-        const span = document.createElement('span');
-        span.innerHTML = node.textContent.substring(0, idx) +
-          '<mark>' + node.textContent.substring(idx, idx + query.length) + '</mark>' +
-          node.textContent.substring(idx + query.length);
-        node.parentNode.replaceChild(span, node);
-      }
-    });
-  }
-
+  });
+}
 
 // ===== Records =====
 function tog(btn) {
@@ -6541,16 +6807,13 @@ function collapseAll() {
 }
 
 let _curType = 'all';
-
 function filterType(type, btn) {
   _curType = type;
   document.querySelectorAll('.fb').forEach(b => b.classList.remove('fa'));
   btn.classList.add('fa');
   applyFilters();
 }
-
 function doRecSearch() { applyFilters(); }
-
 function applyFilters() {
   const q = document.getElementById('recSearch').value.trim().toLowerCase();
   document.querySelectorAll('#tab-rec mark').forEach(m => m.replaceWith(m.textContent));
@@ -6567,9 +6830,14 @@ function applyFilters() {
       }
     } else { card.classList.add('hidden'); }
   });
-  document.getElementById('recCount').textContent = (q||_curType!=='all') ? `显示 ${vis} / 78 条` : `共 78 条`;
+  const lang = document.documentElement.getAttribute('data-lang');
+  const counter = document.getElementById('recCount');
+  if (q || _curType !== 'all') {
+    counter.innerHTML = lang === 'en' ? `Showing ${vis} / 78` : `显示 ${vis} / 78 条`;
+  } else {
+    counter.innerHTML = `<span class="zh">共 78 条</span><span class="en">78 messages</span>`;
+  }
 }
-
 function hlIn(el, q) {
   const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
   const nodes = []; while(w.nextNode()) nodes.push(w.currentNode);
@@ -6583,7 +6851,6 @@ function hlIn(el, q) {
   });
 }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
 function openImg(img) { document.getElementById('lbImg').src=img.src; document.getElementById('lb').classList.add('on'); }
 function closeLb() { document.getElementById('lb').classList.remove('on'); }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
