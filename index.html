@@ -182,16 +182,17 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
 <!-- ===== Header ===== -->
 <div class="site-header">
   <h1>🛠️ Campaign 2.0 Platform — 运营知识库</h1>
-  <p>基于 Campaign 2.0 Platform Communication Group 近30天真实问答沉淀 &nbsp;·&nbsp; 2026.04.07 – 2026.05.07</p>
+  <p>基于 Campaign 2.0 Platform Communication Group 真实问答沉淀 &nbsp;·&nbsp; 2026.04.07 – 2026.05.19（v2 更新：新增近30天 Foxpage 问答 15 条）</p>
   <div class="meta">
-    <span>📬 78 条问题消息</span>
-    <span>❓ 36 个归纳问题</span>
+    <span>📬 78 条原始问题</span>
+    <span>❓ 51 个归纳问题</span>
+    <span>🆕 +15（近30天）</span>
     <span>💬 68 个完整对话</span>
     <span>🖼️ 222 张截图</span>
     <span>👥 34 位用户解析</span>
   </div>
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('faq',this)">📚 FAQ 知识库 <span class="tc">36 问</span></button>
+    <button class="tab-btn active" onclick="switchTab('faq',this)">📚 FAQ 知识库 <span class="tc">51 问</span></button>
     <button class="tab-btn" onclick="switchTab('rec',this)">💬 原始沟通记录 <span class="tc">78 条</span></button>
   </div>
 </div>
@@ -207,7 +208,7 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
     <div class="sidebar-sticky">
       <h3>问题分类</h3>
       <a href="#all" onclick="filterCat('all')" class="active" id="cat-all">
-        📋 全部 <span class="count">36</span>
+        📋 全部 <span class="count">51</span>
       </a>
       <a href="#permission" onclick="filterCat('permission')" id="cat-permission">
         🔐 权限问题 <span class="count">7</span>
@@ -233,6 +234,9 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
       <a href="#system" onclick="filterCat('system')" id="cat-system">
         🔧 系统 & 配置 <span class="count">4</span>
       </a>
+      <a href="#foxpage" onclick="filterCat('foxpage')" id="cat-foxpage">
+        📄 Foxpage（近30天） <span class="count">15</span>
+      </a>
     </div>
   </div>
 
@@ -241,19 +245,19 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
     <!-- Stats -->
     <div class="stats">
       <div class="stat-card">
-        <div class="num">36</div>
+        <div class="num">51</div>
         <div class="label">归纳问题总数</div>
       </div>
       <div class="stat-card">
-        <div class="num">7</div>
-        <div class="label">权限类问题（最高频）</div>
+        <div class="num">15</div>
+        <div class="label">近30天群聊新增</div>
       </div>
       <div class="stat-card">
         <div class="num">13</div>
         <div class="label">涉及报错代码</div>
       </div>
       <div class="stat-card">
-        <div class="num">8</div>
+        <div class="num">9</div>
         <div class="label">问题分类</div>
       </div>
     </div>
@@ -1069,6 +1073,288 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
         </div>
       </div>
     </div>
+
+    <!-- 9. Foxpage 页面问题（近30天群聊汇总） -->
+    <div class="category" data-cat="foxpage" id="foxpage">
+      <div class="category-header">
+        <div class="category-icon" style="background:#fef2f2;">📄</div>
+        <h2>Foxpage 页面问题（近30天）</h2>
+        <span class="badge">15 个问题</span>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">线上组件发布后，引用组件的页面多久同步到最新版本？堡垒环境呢？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 回答</span>
+          <ul>
+            <li>线上页面大概最慢 <strong>40 秒</strong>同步到最新版本，不同机器先后顺序不同</li>
+            <li>堡垒环境同样会同步到最新发布版本（除非你专门发布了堡垒版本）</li>
+            <li>对线上已存在组件做大改动想验证回归时，可<strong>发布堡垒版本</strong>，再用堡垒插件或 baolei 平台访问页面 URL 测试</li>
+          </ul>
+          <div class="tip">💡 不想影响老页面：发堡垒版本 + 在堡垒环境搭建测试页面访问。</div>
+          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">发布</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">hotel-general 日期选择器只能选未来 60 天，更远的日期选不了，怎么办？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">⚠️ 现状</span>
+          <p>Campaign 2.0 中，hotel-general 组件的日历筛选器默认可选范围是<strong>当前日期 + 60 天</strong>，1.0 上能配置的最大日期范围字段在 2.0 已被去掉。</p>
+          <ul>
+            <li>如需扩展（例如 t+90），联系 <strong>@Candice Wu (邬欣颖)</strong> 或 <strong>@Darong Xiao (肖达荣)</strong> 评估</li>
+            <li>这是前端展示限制，但会影响后续下单流程的时间匹配</li>
+          </ul>
+          <div><span class="tag tag-bug">限制</span><span class="tag tag-howto">酒店</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">tabs-navigation-bar 怎么实现点击 tab 跳转到页面指定楼层（锚点）？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 解决方案</span>
+          <p>把组件升级为 <span class="code">@ctrip/cloud-component-sales-tabs-navigation-bar-v2</span>，它支持通过锚点跳转：</p>
+          <ul>
+            <li>URL hash：<span class="code">https://xxx.html#hotel</span></li>
+            <li>URL 参数：<span class="code">https://xxx.html?anchor=hotel</span></li>
+            <li>锚点名取自 tab 名（在组件配置中可调）</li>
+          </ul>
+          <div class="note">📌 旧版 tabs-navigation-bar 不支持锚点；link-wrapper 嵌套 headline 也不支持 # 锚点（只接受 URL 输入）。</div>
+          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">导航</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">把旧页面 copy 到新页面失败、剪贴板粘贴为空，怎么办？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 解决方案</span>
+          <p>Foxpage 跨页面复制要求两个页面 URL 都使用 <strong>https</strong>。</p>
+          <ul>
+            <li>检查浏览器地址栏，把 <span class="code">http://admin.foxpage...</span> 手动改为 <span class="code">https://admin.foxpage...</span></li>
+            <li>新旧页面都用 https 后再 copy/paste</li>
+          </ul>
+          <div class="tip">💡 同样适用于 "Copy to Clipboard"：源页和目标页必须都是 https。</div>
+          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-bug">复制</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">优惠券组件在小语种站点（如 RU）单词太长导致溢出/换行遮挡，怎么处理？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">⚠️ 临时处理</span>
+          <ul>
+            <li>常规字号是 20px，溢出时可临时缩到 <strong>14px</strong>（与商卡价格的最小字号规则保持一致）</li>
+            <li>调整时需让该用户先<strong>退出页面编辑</strong>（直接关浏览器要等几分钟才识别断开）</li>
+            <li>联系 <strong>@Darong Xiao (肖达荣)</strong> 临时处理；产品侧后续会规划单词溢出场景的优化</li>
+            <li>也可与运营协商精简券名</li>
+          </ul>
+          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-bug">布局</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">EDM 中 countdown 倒计时背景色改不了 / 倒计时单位文案要改成缩写（如 "j" 代替 "jours"）</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 说明</span>
+          <ul>
+            <li>EDM 中的倒计时本质是<strong>服务端动态生成的图片</strong>，不支持暗黑模式，背景色无法修改</li>
+            <li>单位文案由 Shark 提供，APPID <span class="code">55555</span>，shark key <span class="code">countdown_days</span></li>
+            <li>修改文案联系 <strong>@Candice Wu (邬欣颖)</strong></li>
+          </ul>
+          <div><span class="tag tag-howto">EDM</span><span class="tag tag-howto">文案</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">机票组件设置了"卡片限制 3 张"，但页面仍然平铺所有货品，为什么？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">⚠️ 原因 & 解决</span>
+          <p>"设置一页展示卡片个数"这个属性<strong>历史上只在 1.0 模式下生效</strong>。如果你填的是 <strong>poolId</strong>（即 2.0 货源），属性会被忽略。</p>
+          <ul>
+            <li>2026-04 已支持：2.0 模式下也支持卡片个数限制（已发布）</li>
+            <li>如仍有问题，联系 <strong>@Darong Xiao (肖达荣)</strong> + <strong>@Minnan Wang (王敏楠)</strong></li>
+          </ul>
+          <div><span class="tag tag-howto">机票</span><span class="tag tag-config">2.0</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">已发布的版本误操作覆盖了，能回退吗？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 解决方案</span>
+          <p>支持<strong>整版本回退</strong>，但只能整体回退，不能只挑某个组件。</p>
+          <ul>
+            <li>建议做法：保留当前版本，去历史版本里<strong>把所需组件复制出来</strong>，粘贴到新版本上发布</li>
+            <li>需要彻底回退到 v66 等历史版本：联系 <strong>@Darong Xiao (肖达荣)</strong>，注意之后再编辑的版本不能基于历史版本继续</li>
+            <li>foxpage 草稿与 live 不一致时，可请 <strong>@Yihui Deng (邓怡辉)</strong> 删除当前草稿</li>
+          </ul>
+          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">发布</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">设置 condition 时间后，重新打开看到的是 GMT+8，业务需要的是本地时区，怎么处理？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">⚠️ 系统设计</span>
+          <ul>
+            <li>Condition 时间会按<strong>当前 Campaign 的时区</strong>展示（不是浏览器本地时区）</li>
+            <li>实际保存的时间是你点击 Save 那一刻的设定值</li>
+            <li>如果显示与预期不一致，联系 <strong>@Tian Bu (卜天)</strong> 排查 Campaign 2.0 时区配置</li>
+          </ul>
+          <div><span class="tag tag-config">时区</span><span class="tag tag-howto">condition</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">Foxpage 模板列表突然找不到自己创建的页面，是 bug 吗？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 原因</span>
+          <p>"样板"列表里只显示<strong>已发布</strong>的页面。当天创建但未发布的页面会被自动过滤掉。</p>
+          <ul>
+            <li>试着发布一个页面后，模板列表会重新出现</li>
+            <li>底部如有"加载更多"按钮也可点击试试</li>
+          </ul>
+          <div><span class="tag tag-howto">Foxpage</span><span class="tag tag-howto">模板</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">想给 top navigation 的某个 tab 单独配置展示条件（如只对新客显示），可以吗？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">⚠️ 当前限制</span>
+          <p>原生不支持给单个 tab 设置 condition。<strong>变通方法</strong>：</p>
+          <ul>
+            <li>复制一份导航栏组件</li>
+            <li>原导航栏只对老用户显示，复制版只对新用户显示，并各自删掉不该出现的 tab</li>
+            <li>整体导航栏维度上分别设置 condition</li>
+          </ul>
+          <div class="tip">💡 经验证可用，会让 Foxpage 编辑页变长，但效果符合预期。</div>
+          <div><span class="tag tag-howto">导航</span><span class="tag tag-howto">condition</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">app-only / online-only / app+online 条件混用时，模块在 preview 里展示不出来</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 排查思路</span>
+          <ul>
+            <li>检查 condition 与组件属性的 binding 是否完整（"有个属性没有绑定好"是常见原因）</li>
+            <li>确认 preview 链接的 locale / 设备类型是否匹配该 condition</li>
+            <li>同样的 condition 复制到其他页面后<strong>不会自动同步</strong>：condition 通过组件 ID 绑定，复制后 ID 重新生成，需手动重新设置 link</li>
+            <li>仍异常联系 <strong>@Darong Xiao (肖达荣)</strong> / <strong>@Linlong Li (李林龙)</strong></li>
+          </ul>
+          <div><span class="tag tag-howto">condition</span><span class="tag tag-bug">展示</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">flash-sale-v3 / hotel / tnt-products 整个组件没有渲染或没有发请求，怎么排查？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">✅ 排查 checklist</span>
+          <ul>
+            <li><strong>检查 slot 是否真的存在</strong>（getPartitionInfo 返回空数据 = 没有该 slot）</li>
+            <li><strong>检查分组类型</strong>：slot 配置 CITY 分组但 POI/酒店没有城市信息时不会进入，改为 <span class="code">No Group</span></li>
+            <li>国内酒店和国外酒店<strong>不能放同一分组</strong>，要按国家分组</li>
+            <li>货品<strong>没有价格</strong>会被前端过滤（ANT 货品要在 ANT 后台配价）</li>
+            <li>货品<strong>状态码 7</strong>（不在售也不售罄）会自动隐藏按钮</li>
+            <li>组件可能被嵌套在某个 tab 下，前端实际上有发请求</li>
+            <li>新建货品有数据延迟，等几分钟再看</li>
+          </ul>
+          <div><span class="tag tag-howto">排查</span><span class="tag tag-howto">货品</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">多 locale 共享预算的多币种优惠券，foxpage 上某些 locale 显示"已失效/Fully issued"</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">⚠️ 系统限制</span>
+          <p>Foxpage 优惠券组件<strong>暂不支持多币种券共享预算</strong>：因历史原因不会换算币种，直接用面值绝对值与库存余额绝对值比较，导致 VN/ID 等大面值货币被算成"无库存"。</p>
+          <p><strong>两种解决方案：</strong></p>
+          <ul>
+            <li>方案 1：按 locale 拆分独立优惠券（每个 locale 自己的库存）</li>
+            <li>方案 2：把"金额库存"换算成"次数库存"，使用次数库存作为总库存</li>
+            <li>同一 link 不同用户看到状态不同时，让 <strong>@Qingfeng Wang (王庆丰)</strong> 按 UID 查访问记录</li>
+          </ul>
+          <div class="note">📌 不要在金额做库存的优惠券上配置多币种。</div>
+          <div><span class="tag tag-howto">优惠券</span><span class="tag tag-bug">库存</span></div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="foxpage">
+        <div class="faq-q" onclick="toggle(this)">
+          <div class="q-icon">Q</div>
+          <div class="question-text">某些活动机制（如 Share 任务、Lucky Draw）找不到了，是不是被下掉了？</div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="faq-a">
+          <span class="answer-label">⚠️ 已下线</span>
+          <ul>
+            <li><strong>Share 任务</strong>：已下线 2-3 年以上，分享相关组件全部移除（Share 完成定义本来就只是"点击按钮"，无法验证真实分享）</li>
+            <li><strong>Lucky Draw 抽奖</strong>：老旧机制，已不再使用；如必须做抽奖，建议用<strong>任务机制</strong>收集符合条件的用户清单，线下抽奖后人工发奖</li>
+            <li><strong>Custom group / 手动分组（机票）</strong>：2.0 不支持，未来也不计划支持，统一走 auto group；要手动分组只能用 Foxpage tab 实现</li>
+            <li><strong>新客礼包 / 学生礼包</strong>：新客礼包是单独实现的组件；学生礼包不支持，需重新开发（IBU 活动场景可向 PM 提需）</li>
+          </ul>
+          <div><span class="tag tag-howto">机制</span><span class="tag tag-howto">下线</span></div>
+        </div>
+      </div>
+    </div>
+
 
   </div><!-- /main -->
 </div><!-- /container -->
