@@ -40,6 +40,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .faq-toolbar input { width: 100%; max-width: 600px; padding: 10px 16px 10px 40px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 14px; outline: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 12px center; transition: border-color .2s; }
 .faq-toolbar input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.1); }
 
+/* Type filter bar */
+.type-filter-bar { display: flex; align-items: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.type-filter-label { font-size: 12px; color: #6b7280; font-weight: 500; margin-right: 4px; }
+.type-pill { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid #e5e7eb; background: white; color: #4b5563; white-space: nowrap; transition: all .15s; display: inline-flex; align-items: center; gap: 6px; }
+.type-pill:hover { background: #f9fafb; border-color: #d1d5db; }
+.type-pill .tp-count { background: #f3f4f6; color: #6b7280; border-radius: 10px; padding: 1px 8px; font-size: 11px; font-weight: 600; }
+.type-pill.active { color: white; border-color: transparent; }
+.type-pill.active .tp-count { background: rgba(255,255,255,.25); color: white; }
+.type-pill[data-type="all"].active { background: #4b5563; }
+.type-pill.type-error.active { background: #dc2626; }
+.type-pill.type-improvement.active { background: #d97706; }
+.type-pill.type-howto.active { background: #2563eb; }
+
+/* Type badge on FAQ item */
+.faq-q .type-badge { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-right: 4px; flex-shrink: 0; align-self: center; }
+.faq-q .type-badge.t-error { background: #fee2e2; color: #b91c1c; }
+.faq-q .type-badge.t-improvement { background: #fef3c7; color: #b45309; }
+.faq-q .type-badge.t-howto { background: #dbeafe; color: #1d4ed8; }
+
 .container { display: flex; max-width: 1400px; margin: 0 auto; padding: 24px 40px; gap: 24px; }
 
 .sidebar { width: 240px; flex-shrink: 0; }
@@ -203,6 +222,25 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
     <input type="text" id="faqSearch" oninput="doFaqSearch(this.value)"
       data-ph-zh="搜索问题关键词，如「权限」「QA」「售罄」「招商」..."
       data-ph-en="Search keywords, e.g. permission, QA, sold-out, sourcing..." />
+    <div class="type-filter-bar">
+      <span class="type-filter-label"><span class="zh">按类型筛选：</span><span class="en">Filter by type:</span></span>
+      <button class="type-pill active" data-type="all" onclick="filterType(this)">
+        <span class="zh">全部</span><span class="en">All</span>
+        <span class="tp-count">57</span>
+      </button>
+      <button class="type-pill type-error" data-type="error" onclick="filterType(this)">
+        🐞 <span class="zh">线上报错</span><span class="en">Live Errors</span>
+        <span class="tp-count">28</span>
+      </button>
+      <button class="type-pill type-improvement" data-type="improvement" onclick="filterType(this)">
+        💡 <span class="zh">建议产品优化</span><span class="en">Product Improvement</span>
+        <span class="tp-count">11</span>
+      </button>
+      <button class="type-pill type-howto" data-type="howto" onclick="filterType(this)">
+        📘 <span class="zh">运营操作和学习</span><span class="en">Ops How-to &amp; Learning</span>
+        <span class="tp-count">18</span>
+      </button>
+    </div>
   </div>
   <div class="container">
     <!-- Sidebar -->
@@ -269,8 +307,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">7 个问题</span><span class="en">7 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="permission">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="permission" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">报错 "No permission for the theme of this campaign"，无法访问 Campaign，怎么解决?</span>
               <span class="en">Getting "No permission for the theme of this campaign" and can't access the campaign — how to fix?</span>
@@ -296,8 +334,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="permission">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="permission" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">如何申请编辑某个 Campaign 的权限(如修改 Campaign 信息)?</span>
               <span class="en">How do I get edit permission for a campaign (e.g. to modify campaign info)?</span>
@@ -318,8 +356,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="permission">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="permission" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">我是 "campaign participant" 角色，但无法在 2.0 新建 Single Campaign，需要额外申请什么权限?</span>
               <span class="en">I'm a "campaign participant" but can't create a new Single Campaign in 2.0 — what extra permission do I need?</span>
@@ -340,8 +378,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="permission">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="permission" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">TNT Sourcing 规则提交后，审批人需要更新，如何修改系统中的审批人?</span>
               <span class="en">A TNT Sourcing rule has been submitted but the approver needs to change — how do I update the approver?</span>
@@ -366,8 +404,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="permission">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="permission" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">已有 theme 权限，为什么还是报错 "No permission for the theme of this campaign"?</span>
               <span class="en">I already have theme permission — why am I still getting "No permission for the theme of this campaign"?</span>
@@ -389,8 +427,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="permission">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="permission" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">HQ 在 Collection 里建 Pool 时，Theme 下只有各市场的选项，没有 HQ 专属 Theme，该选哪个?</span>
               <span class="en">When HQ creates a Pool inside a Collection, the Theme dropdown only shows market themes — there's no HQ theme. Which one to pick?</span>
@@ -407,8 +445,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="permission">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="permission" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">如何在 TripPal 审批流程中添加新的审批人?</span>
               <span class="en">How do I add a new approver in the TripPal approval flow?</span>
@@ -435,8 +473,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">6 个问题</span><span class="en">6 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="sourcing">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="sourcing" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">ANT 上传货单报错 "Wishlist ExpectedHookDeal is invalid: 50% OFF or BOGO"，如何解决?</span>
               <span class="en">ANT inventory upload throws "Wishlist ExpectedHookDeal is invalid: 50% OFF or BOGO" — how to resolve?</span>
@@ -458,8 +496,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="sourcing">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="sourcing" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">Regional 在 HQ KO 前提前发起招商，设置了错误的 Booking Period，被拒绝后系统依然限制 Booking Period 无法更改，如何处理?</span>
               <span class="en">A regional team kicked off sourcing before HQ KO with a wrong Booking Period; even after rejection the system still locks the Booking Period — what to do?</span>
@@ -485,8 +523,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="sourcing">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="sourcing" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">POI ID 报错 "POI ID or Resource ID is error. There is no data from ANT"，如何处理?</span>
               <span class="en">Getting "POI ID or Resource ID is error. There is no data from ANT" — what now?</span>
@@ -508,8 +546,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="sourcing">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="sourcing" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">ANT 产品提交审核后，状态长时间停留在"待审核"，如何处理?</span>
               <span class="en">An ANT product is stuck in "pending review" for a long time — how to push it through?</span>
@@ -530,8 +568,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="sourcing">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="sourcing" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">ZOO 系统无法设置当天的招商时间，最早只能选到次日 00:00，如何绕过这个限制?</span>
               <span class="en">ZOO won't let me set a sourcing time on the current day — earliest selectable is the next day at 00:00. How to work around it?</span>
@@ -556,8 +594,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="sourcing">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="sourcing" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">Collection 中子主题(sub-theme)建错了，Sourcing 已经配好，还能修改子主题吗?</span>
               <span class="en">Sub-theme inside a Collection was set wrong, Sourcing is already configured — can I still change it?</span>
@@ -587,8 +625,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">7 个问题</span><span class="en">7 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="selection">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="selection" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">建 Selection Pool 报错 "theme not found"(upsertHotelSelectionSchema)，如何处理?</span>
               <span class="en">Creating a Selection Pool returns "theme not found" (upsertHotelSelectionSchema) — how to handle?</span>
@@ -609,8 +647,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="selection">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="selection" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">Campaign 2.0 中所有 Selection Pool 突然不见了，如何解决?</span>
               <span class="en">All Selection Pools in Campaign 2.0 suddenly disappeared — how to recover?</span>
@@ -635,8 +673,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="selection">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="selection" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">Local Grading 中已将产品标为 "Hook"，但 Selection Pool 运行后没有结果，为什么?</span>
               <span class="en">Products are marked "Hook" in Local Grading, but the Selection Pool returns nothing — why?</span>
@@ -655,8 +693,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="selection">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="selection" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">创建 ANT Selection Pool 报错 "ProductType not support: Activity Product"，如何解决?</span>
               <span class="en">Creating an ANT Selection Pool throws "ProductType not support: Activity Product" — how to fix?</span>
@@ -681,8 +719,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="selection">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="selection" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">Grading 只有38个酒店，但 Selection Pool 生成了110个酒店，数量为什么会增加?</span>
               <span class="en">Grading has 38 hotels but the Selection Pool produced 110 — why the increase?</span>
@@ -700,8 +738,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="selection">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="selection" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">Selection Pool 设置的可选时间最长只有2个月吗?酒店7月才有房，能超过2个月限制吗?</span>
               <span class="en">Is the Selection Pool date range capped at 2 months? Rooms aren't available until July — can I exceed 2 months?</span>
@@ -722,8 +760,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="selection">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="selection" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">创建/编辑 Hotel Selection Pool 报错 "unknown error"(upsertHotelSelectionSchema)，如何处理?</span>
               <span class="en">Creating/editing a Hotel Selection Pool throws "unknown error" (upsertHotelSelectionSchema) — what next?</span>
@@ -754,8 +792,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">6 个问题</span><span class="en">6 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="flashsale">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="flashsale" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">配置秒杀后页面显示"售罄"，但实际上还没到秒杀时间、主流程可以正常购买，是什么原因?</span>
               <span class="en">After configuring a flash sale the page shows "sold out", yet the sale time hasn't started and the main flow can still book — why?</span>
@@ -777,8 +815,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="flashsale">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="flashsale" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">ANT Flash Sale 产品更新后，状态一直显示"calculating"超过2天，如何处理?</span>
               <span class="en">An ANT Flash Sale product has been stuck "calculating" for more than 2 days — how to fix?</span>
@@ -800,8 +838,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="flashsale">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="flashsale" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">上传 ANT Flash Sale 产品报错 "insertForId TTntSubsidy failed"，如何处理?</span>
               <span class="en">Uploading an ANT Flash Sale product throws "insertForId TTntSubsidy failed" — how to handle?</span>
@@ -822,8 +860,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="flashsale">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="flashsale" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">Flash Sale Pool 创建 QA 任务报错 "Please fill in the 'preheat cover price' in the flash sale pool"，如何解决?</span>
               <span class="en">Creating a QA Task on a Flash Sale Pool errors "Please fill in the 'preheat cover price' in the flash sale pool" — how to resolve?</span>
@@ -845,8 +883,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="flashsale">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="flashsale" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">配置了ANT秒杀组件(2.0)，上传了2个 selling date 共4个产品，但只展示1个 selling date 的1个产品，原因是什么?</span>
               <span class="en">Configured an ANT flash-sale component (2.0) with 2 selling dates and 4 products, but only 1 product on 1 selling date shows up — why?</span>
@@ -864,8 +902,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="flashsale">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="flashsale" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">配置3天2晚的酒店房型秒杀时，"Maximum Effective USP In Target Currency (After Tax)" 应该填2晚总价还是单晚补贴?</span>
               <span class="en">For a 3-day-2-night hotel room flash sale, should "Maximum Effective USP In Target Currency (After Tax)" be the 2-night total or per-night subsidy?</span>
@@ -895,8 +933,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="qa">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="qa" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">Hotel QA 失败，但 "View" 按钮是灰色无法查看失败原因，如何获取详情?</span>
               <span class="en">Hotel QA failed but the "View" button is greyed out — how do I see the failure reason?</span>
@@ -921,8 +959,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="qa">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="qa" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">ANT 产品 Grading 通过，但不显示 "Examination Passed"(GB)，或通过后只显示 "View Feedback" 而不是 "Modify" 按钮(ES)，如何解决?</span>
               <span class="en">ANT Grading passed but "Examination Passed" doesn't show (GB), or only "View Feedback" appears instead of "Modify" (ES) — how to fix?</span>
@@ -940,8 +978,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="qa">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="qa" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">酒店一口价秒杀 QA 结果显示 subsidy status 失败，但 QA 结果本身显示正常，是什么问题?</span>
               <span class="en">Hotel fixed-price flash sale QA shows subsidy status failed, even though the QA result itself looks fine — what's wrong?</span>
@@ -962,8 +1000,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="qa">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="qa" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">酒店在 Vacation-OS Flash Sale QA 中，BD 已经解除限制，为什么 QA 还是失败?</span>
               <span class="en">In a Vacation-OS Flash Sale QA, BD already lifted the restriction — why is QA still failing?</span>
@@ -990,8 +1028,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="display">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="display" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">酒店在 Selection Pool 中已配置且计算完成，但活动页面上不显示或显示数量少于上传的 Pool，如何排查?</span>
               <span class="en">Hotels are configured and calculated in the Selection Pool, but the campaign page shows none or fewer than the Pool — how to troubleshoot?</span>
@@ -1014,8 +1052,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="display">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="display" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">酒店在页面显示"售罄"，但实际在酒店详情页有可用房间，原因是什么?</span>
               <span class="en">A hotel shows "sold out" on the campaign page, but the hotel detail page has available rooms — why?</span>
@@ -1038,8 +1076,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="display">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="display" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">ANT 产品没有配置某城市，但页面上仍然展示了该城市，是什么原因?</span>
               <span class="en">An ANT product wasn't configured for a city, yet the page still shows that city — why?</span>
@@ -1057,8 +1095,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="display">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="display" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">活动页面酒店的国家/地区顺序与 Campaign 2.0 中设置的顺序不一致，如何修正?</span>
               <span class="en">The country/region order of hotels on the campaign page doesn't match the order set in Campaign 2.0 — how to fix?</span>
@@ -1085,8 +1123,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="mechanism">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="mechanism" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">Marketing Application 编辑时报错 "Duplicate key com.ctrip.ibu.campaign.nexus.entity.CampaignApplicationCouponPlay@..."，如何解决?</span>
               <span class="en">Editing a Marketing Application throws "Duplicate key com.ctrip.ibu.campaign.nexus.entity.CampaignApplicationCouponPlay@..." — how to resolve?</span>
@@ -1109,8 +1147,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="mechanism">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="mechanism" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">Marketing Application 中无法添加多个 Play ID，是系统限制还是操作问题?</span>
               <span class="en">Can't add multiple Play IDs to a Marketing Application — system limit or operator error?</span>
@@ -1131,8 +1169,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="mechanism">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="mechanism" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">Mechanism 的 confirmation/subsidies 界面，能否一键通过所有产品?</span>
               <span class="en">On the Mechanism confirmation/subsidies screen, is there a one-click "approve all" for products?</span>
@@ -1152,8 +1190,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="mechanism">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="mechanism" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">修改活动标题时报错 "exception when creating lark message"(updateMainCampaign)，什么原因?</span>
               <span class="en">Updating a campaign title throws "exception when creating lark message" (updateMainCampaign) — what causes this?</span>
@@ -1183,8 +1221,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           <span class="badge"><span class="zh">4 个问题</span><span class="en">4 questions</span></span>
         </div>
 
-        <div class="faq-item" data-cat="system">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="system" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">某些字段(如折扣相关字段)无法手动修改，是根据立减设定自动填入的，能人工更改吗?</span>
               <span class="en">Some fields (e.g. discount-related) can't be manually edited and are auto-filled from Direct Discount — can they be overridden?</span>
@@ -1206,8 +1244,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="system">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="system" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">活动在 Campaign 1.0 中已配好 Basic Info 和 Mechanism，有必要迁移到 2.0 吗?</span>
               <span class="en">A campaign already has Basic Info and Mechanism configured in Campaign 1.0 — is migrating to 2.0 worth it?</span>
@@ -1229,8 +1267,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="system">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="system" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">页面或系统中显示 "China"，能否改成 "内地" 或 "Mainland"?</span>
               <span class="en">The page/system shows "China" — can we change it to "Mainland"?</span>
@@ -1251,8 +1289,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="system">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="system" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">Campaign 2.0 中报错 "cannot found campaign activity by subSourcingId:0"，是什么原因?</span>
               <span class="en">Getting "cannot found campaign activity by subSourcingId:0" in Campaign 2.0 — what's wrong?</span>
@@ -1284,8 +1322,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
         </div>
 
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">hotel-general 日期选择器只能选未来 60 天，更远的日期选不了，怎么办?</span>
               <span class="en">hotel-general date picker only allows up to 60 days ahead — how do I pick further-out dates?</span>
@@ -1306,8 +1344,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">tabs-navigation-bar 怎么实现点击 tab 跳转到页面指定楼层(锚点)?</span>
               <span class="en">How do I make tabs-navigation-bar jump to a specific section (anchor) of the page on click?</span>
@@ -1333,8 +1371,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">优惠券组件在小语种站点(如 RU)单词太长导致溢出/换行遮挡，怎么处理?</span>
               <span class="en">On low-resource locales (e.g. RU), long words in the coupon component overflow/wrap and clip — how to handle?</span>
@@ -1353,8 +1391,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">EDM 中 countdown 倒计时背景色改不了 / 倒计时单位文案要改成缩写(如 "j" 代替 "jours")</span>
               <span class="en">In EDM, the countdown background color isn't editable / unit copy needs an abbreviation (e.g. "j" instead of "jours")</span>
@@ -1372,8 +1410,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">机票组件设置了"卡片限制 3 张"，但页面仍然平铺所有货品，为什么?</span>
               <span class="en">The flight component is set to "limit 3 cards", but all products still tile on the page — why?</span>
@@ -1394,8 +1432,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">flash-sale-v3 / hotel / tnt-products 整个组件没有渲染或没有发请求，怎么排查?</span>
               <span class="en">flash-sale-v3 / hotel / tnt-products component isn't rendering or isn't firing requests — how to debug?</span>
@@ -1417,8 +1455,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">多 locale 共享预算的多币种优惠券，foxpage 上某些 locale 显示"已失效/Fully issued"</span>
               <span class="en">A multi-currency coupon with shared budget across locales shows "Fully issued / expired" on some locales in Foxpage</span>
@@ -1448,8 +1486,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-component">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-component" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">某些活动机制(如 Share 任务、Lucky Draw)找不到了，是不是被下掉了?</span>
               <span class="en">Some campaign mechanisms (Share tasks, Lucky Draw) are gone — were they sunset?</span>
@@ -1478,8 +1516,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
         </div>
 
 
-        <div class="faq-item" data-cat="foxpage-publish">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-publish" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">线上组件发布后，引用组件的页面多久同步到最新版本?堡垒环境呢?</span>
               <span class="en">After publishing a component to production, how long until pages referencing it sync to the latest version? What about the Baolei (fortress) environment?</span>
@@ -1501,8 +1539,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-publish">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-publish" data-type="error">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-error"><span class="zh">🐞 报错</span><span class="en">🐞 Error</span></span>
             <div class="question-text">
               <span class="zh">把旧页面 copy 到新页面失败、剪贴板粘贴为空，怎么办?</span>
               <span class="en">Copying an old page to a new page fails — clipboard paste comes back empty. What now?</span>
@@ -1527,8 +1565,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-publish">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-publish" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">已发布的版本误操作覆盖了，能回退吗?</span>
               <span class="en">A published version was accidentally overwritten — can it be rolled back?</span>
@@ -1550,8 +1588,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-publish">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-publish" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">Foxpage 模板列表突然找不到自己创建的页面，是 bug 吗?</span>
               <span class="en">A page I just created has disappeared from the Foxpage template list — is this a bug?</span>
@@ -1582,8 +1620,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
         </div>
 
 
-        <div class="faq-item" data-cat="foxpage-condition">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-condition" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">设置 condition 时间后，重新打开看到的是 GMT+8，业务需要的是本地时区，怎么处理?</span>
               <span class="en">After setting a condition time, reopening shows GMT+8 but the business wants local time — how to handle?</span>
@@ -1601,8 +1639,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-condition">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-condition" data-type="improvement">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-improvement"><span class="zh">💡 优化</span><span class="en">💡 Improve</span></span>
             <div class="question-text">
               <span class="zh">想给 top navigation 的某个 tab 单独配置展示条件(如只对新客显示)，可以吗?</span>
               <span class="en">Can I set a display condition (e.g. new users only) on a single tab inside top navigation?</span>
@@ -1628,8 +1666,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
           </div>
         </div>
 
-        <div class="faq-item" data-cat="foxpage-condition">
-          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div>
+        <div class="faq-item" data-cat="foxpage-condition" data-type="howto">
+          <div class="faq-q" onclick="toggle(this)"><div class="q-icon">Q</div><span class="type-badge t-howto"><span class="zh">📘 操作</span><span class="en">📘 How-to</span></span>
             <div class="question-text">
               <span class="zh">app-only / online-only / app+online 条件混用时，模块在 preview 里展示不出来</span>
               <span class="en">When app-only / online-only / app+online conditions are mixed, the module doesn't show in preview</span>
@@ -6749,6 +6787,10 @@ function switchTab(name, btn) {
 }
 
 // ===== FAQ =====
+let _faqCat = 'all';
+let _faqType = 'all';
+let _faqQuery = '';
+
 function toggle(el) {
   const item = el.parentElement;
   const wasOpen = item.classList.contains('open');
@@ -6757,47 +6799,53 @@ function toggle(el) {
 }
 
 function filterCat(cat) {
+  _faqCat = cat;
   document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-  document.getElementById('cat-' + cat).classList.add('active');
-  const items = document.querySelectorAll('.faq-item');
-  const categories = document.querySelectorAll('.category');
-  if (cat === 'all') {
-    items.forEach(i => i.style.display = '');
-    categories.forEach(c => c.style.display = '');
-  } else {
-    categories.forEach(c => { c.style.display = c.dataset.cat === cat ? '' : 'none'; });
-    items.forEach(i => i.style.display = '');
-  }
+  const sb = document.getElementById('cat-' + cat);
+  if (sb) sb.classList.add('active');
+  applyFaqFilters();
   return false;
 }
 
+function filterType(btn) {
+  const t = btn.dataset.type;
+  _faqType = t;
+  document.querySelectorAll('.type-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFaqFilters();
+}
+
 function doFaqSearch(query) {
-  const q = query.trim().toLowerCase();
-  document.querySelectorAll('mark').forEach(m => m.replaceWith(m.textContent));
-  if (!q) {
-    document.querySelectorAll('.faq-item').forEach(i => i.style.display = '');
-    document.querySelectorAll('.category').forEach(c => c.style.display = '');
-    document.getElementById('no-results').style.display = 'none';
-    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-    document.getElementById('cat-all').classList.add('active');
-    return;
-  }
+  _faqQuery = query.trim().toLowerCase();
+  applyFaqFilters();
+}
+
+function applyFaqFilters() {
+  document.querySelectorAll('#tab-faq mark').forEach(m => m.replaceWith(m.textContent));
+  const q = _faqQuery;
   let visibleCount = 0;
+
   document.querySelectorAll('.faq-item').forEach(item => {
-    const text = item.textContent.toLowerCase();
-    if (text.includes(q)) {
+    const catMatch = _faqCat === 'all' || item.dataset.cat === _faqCat;
+    const typeMatch = _faqType === 'all' || item.dataset.type === _faqType;
+    const textMatch = !q || item.textContent.toLowerCase().includes(q);
+    if (catMatch && typeMatch && textMatch) {
       item.style.display = '';
-      item.classList.add('open');
       visibleCount++;
-      highlightText(item, q);
+      if (q) {
+        item.classList.add('open');
+        highlightText(item, q);
+      }
     } else {
       item.style.display = 'none';
     }
   });
+
   document.querySelectorAll('.category').forEach(cat => {
     const hasVisible = Array.from(cat.querySelectorAll('.faq-item')).some(i => i.style.display !== 'none');
     cat.style.display = hasVisible ? '' : 'none';
   });
+
   document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
 }
 
