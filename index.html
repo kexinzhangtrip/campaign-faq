@@ -59,6 +59,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .faq-q .type-badge.t-improvement { background: #fef3c7; color: #b45309; }
 .faq-q .type-badge.t-howto { background: #dbeafe; color: #1d4ed8; }
 
+/* Original-record reference links inside FAQ answers */
+.rec-refs { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #e5e7eb; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 12.5px; }
+.rec-refs-label { color: #6b7280; font-weight: 500; }
+.rec-link { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 12px; background: #eff6ff; color: #1d4ed8; text-decoration: none; font-weight: 600; font-size: 12px; border: 1px solid #dbeafe; transition: all .15s; }
+.rec-link:hover { background: #1d4ed8; color: white; border-color: #1d4ed8; transform: translateY(-1px); }
+
+/* Highlight a target record after jumping in */
+.rc.flash-target { animation: rc-flash 1.6s ease-out; }
+@keyframes rc-flash {
+  0%   { box-shadow: 0 0 0 4px rgba(37, 99, 235, .55); background: #eff6ff; }
+  100% { box-shadow: 0 1px 4px rgba(0,0,0,.07); background: white; }
+}
+
 .container { display: flex; max-width: 1400px; margin: 0 auto; padding: 24px 40px; gap: 24px; }
 
 .sidebar { width: 240px; flex-shrink: 0; }
@@ -331,6 +344,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">💡 If you already have theme permission and it still fails, verify the theme name matches exactly (case-sensitive).</span>
             </div>
             <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r20" onclick="jumpToRecord(20); return false;">#20</a><a class="rec-link" href="#r74" onclick="jumpToRecord(74); return false;">#74</a><a class="rec-link" href="#r61" onclick="jumpToRecord(61); return false;">#61</a></div>
           </div>
         </div>
 
@@ -353,6 +368,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">在群内 @ 管理员，说明你的 EID、Team 和需要访问的 Campaign URL</span><span class="en">@ them in the group with your EID, team, and target Campaign URL</span></li>
             </ul>
             <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r61" onclick="jumpToRecord(61); return false;">#61</a><a class="rec-link" href="#r23" onclick="jumpToRecord(23); return false;">#23</a></div>
           </div>
         </div>
 
@@ -375,6 +392,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">说明你要创建 Campaign 的 Theme 和用途</span><span class="en">Explain which Theme you want to create the campaign in, and the use case</span></li>
             </ul>
             <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r23" onclick="jumpToRecord(23); return false;">#23</a></div>
           </div>
         </div>
 
@@ -401,6 +420,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">📌 Same approach applies to switching approvers in the TripPal flow (done via Workspace).</span>
             </div>
             <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span><span class="tag tag-config"><span class="zh">审批流</span><span class="en">Approval flow</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r9" onclick="jumpToRecord(9); return false;">#9</a><a class="rec-link" href="#r2" onclick="jumpToRecord(2); return false;">#2</a></div>
           </div>
         </div>
 
@@ -424,6 +445,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">If the problem persists, screenshot the error and @ <strong>@Tian Bu</strong> for help.</span>
             </p>
             <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r74" onclick="jumpToRecord(74); return false;">#74</a></div>
           </div>
         </div>
 
@@ -442,6 +465,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">HQ currently has no dedicated Theme — pick the corresponding market Theme when creating the Pool, or ask <strong>@Tian Bu</strong> for the correct path.</span>
             </p>
             <div><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span><span class="tag tag-howto"><span class="zh">操作指引</span><span class="en">How-to</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r17" onclick="jumpToRecord(17); return false;">#17</a></div>
           </div>
         </div>
 
@@ -461,6 +486,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">点击"添加审批人"，输入新审批人 EID 后保存</span><span class="en">Click "Add Approver", enter the new approver's EID, and save</span></li>
             </ol>
             <div><span class="tag tag-howto"><span class="zh">操作指引</span><span class="en">How-to</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r78" onclick="jumpToRecord(78); return false;">#78</a><a class="rec-link" href="#r9" onclick="jumpToRecord(9); return false;">#9</a></div>
           </div>
         </div>
       </div>
@@ -493,6 +520,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">将文件修正后重新上传，或联系 <strong>@Wenlu Gan (甘雯露)</strong> 协助确认正确格式</span><span class="en">Fix the file and re-upload, or ask <strong>@Wenlu Gan</strong> for the correct format</span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r4" onclick="jumpToRecord(4); return false;">#4</a></div>
           </div>
         </div>
 
@@ -520,6 +549,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">💡 Prevention: align KO timing with all regions before Global initiates sourcing, so regions don't jump the gun.</span>
             </div>
             <div><span class="tag tag-bug"><span class="zh">系统Bug</span><span class="en">System bug</span></span><span class="tag tag-permission"><span class="zh">招商</span><span class="en">Sourcing</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r2" onclick="jumpToRecord(2); return false;">#2</a></div>
           </div>
         </div>
 
@@ -543,6 +574,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">联系 <strong>@Wenlu Gan (甘雯露)</strong> 或 <strong>@Junfeng Zhang (张俊峰)</strong> 确认数据状态</span><span class="en">Ask <strong>@Wenlu Gan</strong> or <strong>@Junfeng Zhang</strong> to check the data status</span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r33" onclick="jumpToRecord(33); return false;">#33</a><a class="rec-link" href="#r51" onclick="jumpToRecord(51); return false;">#51</a></div>
           </div>
         </div>
 
@@ -565,6 +598,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">若超过24小时仍未处理，联系 <strong>@Wenlu Gan (甘雯露)</strong> 并提供产品 ID 和名称</span><span class="en">If &gt; 24h with no progress, ping <strong>@Wenlu Gan</strong> with the product ID and name</span></li>
             </ul>
             <div><span class="tag tag-howto">ANT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r42" onclick="jumpToRecord(42); return false;">#42</a></div>
           </div>
         </div>
 
@@ -591,6 +626,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">📌 E.g. "from now until some date at 22:59:59" — must go through the backend.</span>
             </div>
             <div><span class="tag tag-bug"><span class="zh">系统限制</span><span class="en">System limit</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r12" onclick="jumpToRecord(12); return false;">#12</a></div>
           </div>
         </div>
 
@@ -613,6 +650,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">如果 Campaign 已上线，修改子主题风险较大，需谨慎评估影响</span><span class="en">If already live, changing the sub-theme is high-risk — assess impact carefully</span></li>
             </ul>
             <div><span class="tag tag-howto"><span class="zh">配置</span><span class="en">Config</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r24" onclick="jumpToRecord(24); return false;">#24</a></div>
           </div>
         </div>
       </div>
@@ -644,6 +683,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">请求对应 Theme 权限</span><span class="en">Request the matching Theme permission</span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-permission"><span class="zh">权限</span><span class="en">Permission</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r19" onclick="jumpToRecord(19); return false;">#19</a></div>
           </div>
         </div>
 
@@ -670,6 +711,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">💡 Likely causes: sync anomaly, or Pool state was inadvertently reset.</span>
             </div>
             <div><span class="tag tag-bug"><span class="zh">系统异常</span><span class="en">System anomaly</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r26" onclick="jumpToRecord(26); return false;">#26</a></div>
           </div>
         </div>
 
@@ -690,6 +733,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">若仍无结果，联系 <strong>@Wenlu Gan (甘雯露)</strong> 协助排查，提供 Campaign 和 Pool 链接</span><span class="en">If still empty, ask <strong>@Wenlu Gan</strong> to investigate; share Campaign and Pool links</span></li>
             </ul>
             <div><span class="tag tag-howto">Grading</span><span class="tag tag-bug"><span class="zh">数据同步</span><span class="en">Data sync</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r26" onclick="jumpToRecord(26); return false;">#26</a><a class="rec-link" href="#r67" onclick="jumpToRecord(67); return false;">#67</a></div>
           </div>
         </div>
 
@@ -716,6 +761,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">📌 Pool A typically maps to ANT / day-tour products; Pool B to TNT / travel package products.</span>
             </div>
             <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r51" onclick="jumpToRecord(51); return false;">#51</a></div>
           </div>
         </div>
 
@@ -735,6 +782,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong> 协助确认 Pool 配置是否正确</span><span class="en">Ask <strong>@Tian Bu</strong> to validate the Pool config</span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">数据异常</span><span class="en">Data anomaly</span></span><span class="tag tag-howto">Hotel</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r67" onclick="jumpToRecord(67); return false;">#67</a></div>
           </div>
         </div>
 
@@ -757,6 +806,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">若确实存在2个月限制，可能需要分段配置 Pool</span><span class="en">If the 2-month cap is real, you may need to split the Pool into segments</span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">系统限制</span><span class="en">System limit</span></span><span class="tag tag-howto">Hotel</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r73" onclick="jumpToRecord(73); return false;">#73</a></div>
           </div>
         </div>
 
@@ -780,6 +831,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">提供完整的 Campaign URL 和 EID</span><span class="en">Provide the full Campaign URL and your EID</span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r77" onclick="jumpToRecord(77); return false;">#77</a><a class="rec-link" href="#r63" onclick="jumpToRecord(63); return false;">#63</a></div>
           </div>
         </div>
       </div>
@@ -812,6 +865,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">📌 The "sold out" display in the 15 min before sale start is normal pre-heat behavior.</span>
             </div>
             <div><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r64" onclick="jumpToRecord(64); return false;">#64</a></div>
           </div>
         </div>
 
@@ -835,6 +890,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">💡 Same approach applies to Train product Pools stuck calculating.</span>
             </div>
             <div><span class="tag tag-bug"><span class="zh">系统异常</span><span class="en">System anomaly</span></span><span class="tag tag-howto">ANT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r42" onclick="jumpToRecord(42); return false;">#42</a></div>
           </div>
         </div>
 
@@ -857,6 +914,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">说明具体 Campaign、Pool ID 和上传的产品</span><span class="en">Include the Campaign, Pool ID, and the uploaded product</span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">ANT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r53" onclick="jumpToRecord(53); return false;">#53</a></div>
           </div>
         </div>
 
@@ -880,6 +939,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">保存后重新创建 QA Task</span><span class="en">Save, then re-create the QA Task</span></li>
             </ul>
             <div><span class="tag tag-howto">Flash Sale</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r60" onclick="jumpToRecord(60); return false;">#60</a></div>
           </div>
         </div>
 
@@ -899,6 +960,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">可能原因:多个 selling date 之间有冲突，或部分产品 QA 未通过</span><span class="en">Likely causes: clashing selling dates, or some products failed QA</span></li>
             </ul>
             <div><span class="tag tag-bug">ANT</span><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r57" onclick="jumpToRecord(57); return false;">#57</a></div>
           </div>
         </div>
 
@@ -921,6 +984,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">如果 preview 不显示单晚价格，提供截图一并反馈</span><span class="en">If the preview omits per-night pricing, attach a screenshot in your report</span></li>
             </ul>
             <div><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span><span class="tag tag-config">Mechanism</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r15" onclick="jumpToRecord(15); return false;">#15</a><a class="rec-link" href="#r76" onclick="jumpToRecord(76); return false;">#76</a></div>
           </div>
         </div>
       </div>
@@ -956,6 +1021,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">💡 Common reasons: RP has a masking rule, no available rooms, price doesn't meet campaign requirements, etc.</span>
             </div>
             <div><span class="tag tag-bug">QA</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r30" onclick="jumpToRecord(30); return false;">#30</a></div>
           </div>
         </div>
 
@@ -975,6 +1042,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">只有 "View Feedback" 而无 "Modify":需要确认产品状态是否正确流转到可编辑阶段</span><span class="en">Only "View Feedback" with no "Modify": verify the product transitioned to an editable stage</span></li>
             </ul>
             <div><span class="tag tag-bug">QA</span><span class="tag tag-howto">ANT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r32" onclick="jumpToRecord(32); return false;">#32</a></div>
           </div>
         </div>
 
@@ -997,6 +1066,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">Send the Mechanism link and failing hotel IDs to <strong>@Tian Bu</strong>.</span>
             </p>
             <div><span class="tag tag-bug">QA</span><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r76" onclick="jumpToRecord(76); return false;">#76</a></div>
           </div>
         </div>
 
@@ -1016,6 +1087,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">联系 <strong>@Ada Li (李嘉裕)</strong> 确认酒店实时房态</span><span class="en">Ask <strong>@Ada Li</strong> to confirm live room status</span></li>
             </ul>
             <div><span class="tag tag-bug">QA</span><span class="tag tag-howto">Hotel</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r47" onclick="jumpToRecord(47); return false;">#47</a></div>
           </div>
         </div>
       </div>
@@ -1049,6 +1122,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">📌 The poolId in Foxpage must exactly match the Pool ID in Campaign 2.0.</span>
             </div>
             <div><span class="tag tag-bug"><span class="zh">展示异常</span><span class="en">Display anomaly</span></span><span class="tag tag-howto">Hotel</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r67" onclick="jumpToRecord(67); return false;">#67</a></div>
           </div>
         </div>
 
@@ -1073,6 +1148,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">Send hotel ID and campaign-page link to <strong>@Tian Bu</strong> or <strong>@Junfeng Zhang</strong>.</span>
             </p>
             <div><span class="tag tag-bug"><span class="zh">售罄</span><span class="en">Sold out</span></span><span class="tag tag-howto">Hotel</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r64" onclick="jumpToRecord(64); return false;">#64</a><a class="rec-link" href="#r3" onclick="jumpToRecord(3); return false;">#3</a></div>
           </div>
         </div>
 
@@ -1092,6 +1169,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">提供页面链接和具体展示异常的城市</span><span class="en">Provide the page link and the misbehaving city</span></li>
             </ul>
             <div><span class="tag tag-bug">ANT</span><span class="tag tag-bug"><span class="zh">展示异常</span><span class="en">Display anomaly</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r31" onclick="jumpToRecord(31); return false;">#31</a></div>
           </div>
         </div>
 
@@ -1111,6 +1190,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">如果前后台均正确但仍不一致，联系 <strong>@Tian Bu (卜天)</strong> 排查</span><span class="en">If both sides look right but the order still differs, escalate to <strong>@Tian Bu</strong></span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">展示异常</span><span class="en">Display anomaly</span></span><span class="tag tag-howto">Hotel</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r54" onclick="jumpToRecord(54); return false;">#54</a></div>
           </div>
         </div>
       </div>
@@ -1144,6 +1225,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">如仍有问题，联系 <strong>@Tian Bu (卜天)</strong> 提供完整报错信息</span><span class="en">Still stuck? Send the full error to <strong>@Tian Bu</strong></span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">报错 17128</span><span class="en">Error 17128</span></span><span class="tag tag-howto">MKT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r35" onclick="jumpToRecord(35); return false;">#35</a><a class="rec-link" href="#r48" onclick="jumpToRecord(48); return false;">#48</a></div>
           </div>
         </div>
 
@@ -1166,6 +1249,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">📌 Some Marketing Application scenarios do cap the number of Play IDs.</span>
             </div>
             <div><span class="tag tag-howto">MKT</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r48" onclick="jumpToRecord(48); return false;">#48</a></div>
           </div>
         </div>
 
@@ -1187,6 +1272,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">如业务上有批量操作需求，可向 <strong>@Tian Bu (卜天)</strong> 提出功能需求</span><span class="en">If you need bulk ops, submit a feature request to <strong>@Tian Bu</strong></span></li>
             </ul>
             <div><span class="tag tag-howto">Mechanism</span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r21" onclick="jumpToRecord(21); return false;">#21</a></div>
           </div>
         </div>
 
@@ -1209,6 +1296,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">若多次失败，联系 <strong>@Tian Bu (卜天)</strong> 提供 MESSAGE ID 排查</span><span class="en">If repeated failures, send the MESSAGE ID to <strong>@Tian Bu</strong></span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">系统异常</span><span class="en">System anomaly</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r71" onclick="jumpToRecord(71); return false;">#71</a></div>
           </div>
         </div>
       </div>
@@ -1241,6 +1330,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">如有特殊需求，联系 <strong>@Tian Bu (卜天)</strong> 确认是否有后台修改途径</span><span class="en">For special cases, ask <strong>@Tian Bu</strong> if a backend override exists</span></li>
             </ul>
             <div><span class="tag tag-howto"><span class="zh">配置</span><span class="en">Config</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r1" onclick="jumpToRecord(1); return false;">#1</a></div>
           </div>
         </div>
 
@@ -1264,6 +1355,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <span class="en">📌 Recommendation: start new campaigns on 2.0; don't forcibly migrate live 1.0 campaigns.</span>
             </div>
             <div><span class="tag tag-howto"><span class="zh">迁移</span><span class="en">Migration</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r44" onclick="jumpToRecord(44); return false;">#44</a></div>
           </div>
         </div>
 
@@ -1309,6 +1402,8 @@ mark { background: #fef08a; color: inherit; border-radius: 2px; padding: 0 2px; 
               <li><span class="zh">联系 <strong>@Tian Bu (卜天)</strong>，提供报错截图和 Campaign 链接</span><span class="en">Send the error screenshot and Campaign link to <strong>@Tian Bu</strong></span></li>
             </ul>
             <div><span class="tag tag-bug"><span class="zh">报错</span><span class="en">Error</span></span><span class="tag tag-howto"><span class="zh">秒杀</span><span class="en">Flash sale</span></span></div>
+          
+            <div class="rec-refs"><span class="rec-refs-label"><span class="zh">📎 原始沟通记录：</span><span class="en">📎 Original conversations:</span></span><a class="rec-link" href="#r15" onclick="jumpToRecord(15); return false;">#15</a></div>
           </div>
         </div>
       </div>
@@ -6863,6 +6958,40 @@ function highlightText(el, query) {
       node.parentNode.replaceChild(span, node);
     }
   });
+}
+
+// Jump from a FAQ to a specific record card (cross-tab navigation)
+function jumpToRecord(rid) {
+  // Switch to Records tab
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-rec').classList.add('active');
+  // The 2nd tab button is Records
+  const recBtn = document.querySelectorAll('.tab-btn')[1];
+  if (recBtn) recBtn.classList.add('active');
+
+  // Reset record filters so the target is visible
+  _curType = 'all';
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('fa'));
+  const allBtn = document.querySelector('.fb');
+  if (allBtn) allBtn.classList.add('fa');
+  const recSearch = document.getElementById('recSearch');
+  if (recSearch) recSearch.value = '';
+  if (typeof applyFilters === 'function') applyFilters();
+
+  // Expand the target's reply thread
+  const target = document.getElementById('r' + rid);
+  if (!target) return;
+  target.classList.remove('hidden');
+  target.querySelectorAll('.tt').forEach(b => { b.classList.add('open'); if (b.nextElementSibling) b.nextElementSibling.style.display = ''; });
+
+  // Scroll into view + flash highlight
+  setTimeout(() => {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.classList.remove('flash-target');
+    void target.offsetWidth; // force reflow so the animation re-runs
+    target.classList.add('flash-target');
+  }, 50);
 }
 
 // ===== Records =====
